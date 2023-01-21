@@ -1,75 +1,26 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from '../../utils/logo-umai.svg';
 import check from '../../utils/check.svg';
+import { navElements } from '../../utils/constants';
 
 const Header = () => {
   const [isHovered, setHover] = useState(false);
   const [hoveredElem, setHoveredElem] = useState(-1);
-  const navElements = [
-    {
-      title: "Recipes",
-      href: "#recipes",
-      submenu: [
-        "Filter",
-        "Index",
-        "Latest",
-        "Popular"
-      ]
-    },
-    {
-      title: "Course",
-      href: "#course",
-      submenu: [
-        "Appetizer",
-        "Beverage",
-        "Breakfast",
-        "Dessert",
-        "Main Dish",
-        "Salad",
-        "Side Dish",
-        "Snack",
-        "Soup + Stew"
-      ]
-    },
-    {
-      title: "Dietary",
-      href: "#dietary",
-      submenu: [
-        "Gluten-Free",
-        "Vegan",
-        "Vegan/Vegetarian",
-        "Vegetarian"
-        
-      ]
-    },
-    {
-      title: "Ingredient",
-      href: "#ingredient",
-      submenu: [
-        "Bean"
-      ]
-    },
-    {
-      title: "Preparation",
-      href: "#preparation",
-      submenu: [
-        "Bento"
-      ],
-    },
-    {
-      title: "Dish Type",
-      href: "#dish",
-      submenu: [
-        "Bread"
-      ],
-    },
-  ];
-
+  let navigate = useNavigate();
+  
+  function handleClick(e, path) {
+    e.preventDefault();
+    navigate(path);
+  }
 
   return (
     <header className='header container'>
-      <div className='header-logo'>
+      <div 
+        className='header-logo'
+        onClick={(e) => handleClick(e, '/')}
+      >
         <img src={logo} alt="Logotype UMAI in japanese" />
       </div>
       <nav className='header-nav'>
@@ -84,24 +35,28 @@ const Header = () => {
                 }}
                 onMouseLeave={() => setHover(false)}
               >       
-                <a href={element.href}>
-                  {element.title}
-                </a>
+                {element.title}
                 <button className="header-nav__button">
                   <img src={check} alt="Submenu navbar"/>
                 </button>
                 <ul 
                   className='header-nav__submenu'
-                  
+                  style={{
+                    display: hoveredElem === index && isHovered ? "block" : "none"
+                  }}
                 >
-                  <li 
-                    key={index} 
-                    style={{
-                      display: hoveredElem === index && isHovered ? "block" : "none"
-                    }}
-                  >
-                    <a> {element.submenu} </a>
-                  </li>
+          
+                  {
+                    element.submenu.map((subitem, subitemIndex) => (
+                      <li 
+                        key={subitemIndex} 
+                        onClick={(e) => handleClick(e, subitem.href)}
+                      >
+                        {subitem.name}
+                      </li>
+                    ))
+                  }
+                  
                 </ul>
               </li>
             ))

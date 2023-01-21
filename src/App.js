@@ -1,12 +1,17 @@
 import './App.css';
-import { Header } from './components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Welcome } from './components';
 
 function App() {
   return (
-    <div className="App">
-      <Header>
-      </Header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+          <Route path="/" exact element={<Welcome />} />
+          {/* <Route path="/video/:id" element={<VideoDetail />} />
+          <Route path="/channel/:id" element={<ChannelDetail />} />
+          <Route path="/search/:searchTerm" element={<SearchFeed />} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

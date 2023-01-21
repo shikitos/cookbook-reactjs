@@ -10,12 +10,16 @@ button {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background: --var(--color-red);
 }
 
-.header-nav ul, .header-nav li {
+.header-logo {
+    cursor: pointer;
+}
+
+.header-nav ul {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -23,14 +27,13 @@ button {
     margin-right: 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    font-weight: 500;
+    cursor: pointer;
 }
 
-.header-nav > ul> li> a {
-    font-weight: 500;
-}
 
 .header-nav__submenu {
-    float: left;
     position: absolute;
     z-index: 99999;
     background: #fff;
@@ -38,8 +41,30 @@ button {
     cursor: pointer;
     -webkit-transition: 400ms;
     transition: 400ms;
-    text-align: left;
     -webkit-box-shadow: 0 0 10px 0 rgb(50 50 50 / 25%);
     -moz-box-shadow: 0 0 10px 0 rgba(50,50,50,.25);
     box-shadow: 0 0 10px 0 rgb(50 50 50 / 25%);
+    top: 80px
 }
+
+.header-nav__submenu:nth-child(6) {
+    left: 50px;
+}
+
+.header-nav__submenu > li {
+    display: block;
+    padding: 10px;
+    background: #fff;
+    width: 175px;
+    line-height: 1;
+    position: relative;
+    color: #212121;
+}
+
+.header-nav__submenu > li:hover {
+    -webkit-transition: 400ms;
+    transition: 400ms;
+    background: #212121;
+    color: #fff;
+}
+
