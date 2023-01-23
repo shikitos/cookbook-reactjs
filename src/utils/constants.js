@@ -239,3 +239,4 @@ export const navElements = [
     },
 ];
   
+export const exampleURLImage = "https://www.justonecookbook.com/wp-content/uploads/2022/08/Shio-Ramen-9507-III-400x600.jpg";

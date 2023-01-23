@@ -5,7 +5,7 @@ button {
 }
 
 .header {
-    margin: 25px 0 25px 0;
+    padding: 25px 0 25px 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -13,7 +13,7 @@ button {
     background: --var(--color-red);
 }
 
-.header-logo {
+.header-logo, .header-nav button > img{
     cursor: pointer;
 }
 
@@ -28,8 +28,13 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-weight: 500;
+    font-weight: 700;
     cursor: pointer;
+    transition: all 0.25s;
+}
+
+.header-nav > ul> li:hover {
+    color: var(--color-red)
 }
 
 

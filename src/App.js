@@ -1,15 +1,17 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Welcome } from './components';
+import { Header } from './components';
 
 function App() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
           <Route path="/" exact element={<Welcome />} />
-          {/* <Route path="/video/:id" element={<VideoDetail />} />
-          <Route path="/channel/:id" element={<ChannelDetail />} />
-          <Route path="/search/:searchTerm" element={<SearchFeed />} /> */}
+          {/* <Route path="/tags/:name" element={<ComponentName />} />
+          <Route path="/categories/recipes/:name" element={<ComponentName />} />
+          <Route path="/search/:" element={< />} /> */}
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,28 @@
+.post-card {
+    display: block;
+    width: calc(1/4 * 100% - 15px);
+    margin: 0 20px 40px 0;
+    background: #fff;
+    -webkit-box-shadow: 0 0 10px 0 rgb(50 50 50 / 15%);
+    -moz-box-shadow: 0 0 10px 0 rgba(50,50,50,.15);
+    box-shadow: 0 0 10px 0 rgb(50 50 50 / 15%);
+}
+
+.post-card:hover {
+    cursor: pointer;
+    -webkit-box-shadow: 0 0 10px 0 rgba(17, 16, 16, 0.8);
+    -moz-box-shadow: 0 0 10px 0 rgba(50,50,50,.8);
+    box-shadow: 0 0 10px 0 rgba(50, 50, 50, 0.8);
+}
+
+.post-card img {
+    display: block;
+}
+
+.post-card h2 {
+    padding: 10px;
+    line-height: 1.25;
+    margin: 0 auto;
+    font-size: 21px;
+    font-weight: 700;
+}
