@@ -6,15 +6,15 @@ const BlogCard = ({cardCategory}) => {
   const [data, setData] = useState(null);
   
   useEffect(() => {
-    axios.get('http://localhost:3000/api/hello')
+    axios.get('http://localhost:3000/api/recipes')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
 
   return (
     <div>
-      !!!!!!!!!!!!!!!!!!
-      {data ? data : 'Loading....'}
+      .234556 
+      {data ? data : ' Loading....'}
     </div>
   )
 }

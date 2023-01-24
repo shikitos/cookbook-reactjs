@@ -1,5 +1,5 @@
 import React from "react";
-import { Post, WelcomeSection } from "../";
+import { Post, WelcomeSection, CreateRecipe } from "../";
 import './Welcome.css';
 import { exampleURLImage } from "../../utils/constants";
 
@@ -47,6 +47,7 @@ const Welcome = () => {
         </div>
       </div>
       
+
     </main>
   )
 };
