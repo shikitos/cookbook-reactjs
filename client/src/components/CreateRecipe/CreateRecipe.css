@@ -5,8 +5,9 @@ form {
     padding: 20px;
   }
   
-  input[type="text"], textarea {
+  input[type="text"], input[type="number"], textarea {
     width: 80%;
+    max-width: 80%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -38,7 +39,7 @@ form {
   
   button[type="submit"] {
     width: 80%;
-    background-color: #4CAF50;
+    background-color: var(--color-black);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -48,6 +49,6 @@ form {
   }
   
   button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: var(--color-red);
   }
   

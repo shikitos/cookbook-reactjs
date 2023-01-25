@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import axios from 'axios';
 import './CreateRecipe.css'
 
 function CreateRecipe() {
   const [name, setName] = useState('');
+  const [review, setReview] = useState('');
+  const [time, setTime] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [tags, setTags] = useState([]);
   const [instructions, setInstructions] = useState([]);
   const [description, setDescription] = useState([]);
-  const [image, setImage] = useState(null);
   const [imageData, setImageData] = useState(null);
-  const [category, setCategory] = useState('');
+  const [nutrition, setNutrition] = useState([]);
   const [response, setResponse] = useState(null);
   
 
@@ -25,23 +26,22 @@ function CreateRecipe() {
       reader.readAsDataURL(file);
     }
   });
-  
-  const handleFileChange = (event) => {
-    console.log(event.target.files[0]);
-    setImage(event.target.files[0]);
-  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const recipe = {
       name,
-      ingredients: ingredients.split(", "),
-      instructions: instructions.split(", "),
+      review,
+      tags: tags.split(", "),
+      time,
+      description,
       image: imageData,
-      category,
-      description: description.split(", ")
+      instructions,
+      ingredients: ingredients.split(", "),
+      nutrition: nutrition.split(", "),
     };
-    console.log(JSON.stringify({recipe}));
+    console.log(recipe);
     const res = await fetch('http://localhost:8000/api/recipes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -53,17 +53,20 @@ function CreateRecipe() {
 
 
   return (
-    <div>
+    <div className="container">
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
+        <input type="number" placeholder="Review" value={review} onChange={e => setReview(e.target.value)} />
+        <input type="text" placeholder="Time" value={time} onChange={e => setTime(e.target.value)} />
         <textarea placeholder="Ingredients" value={ingredients} onChange={e => setIngredients(e.target.value)} />
-        <textarea placeholder="Instructions" value={instructions} onChange={e => setInstructions(e.target.value)} />
+        <textarea placeholder="Tags" value={tags} onChange={e => setTags(e.target.value)} />
         <textarea placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
+        <textarea placeholder="Instructions in the HTML format with images in base64 included" value={instructions} onChange={e => setInstructions(e.target.value)} />
+        <input type="text" placeholder="Nutritions" value={nutrition} onChange={e => setNutrition(e.target.value)} />
         <div className='dropzone' {...getRootProps()}>
-          <input {...getInputProps()} type="file" onChange={handleFileChange}/>
+          <input {...getInputProps()} />
           {imageData ? <img src={imageData} alt="Uploaded" width="300" height="300" /> : <p>Drag 'n' drop some files here, or click to select files</p>}
         </div>
-        <input type="text" placeholder="Category" value={category} onChange={e => setCategory(e.target.value)} />
         <button onClick={(e) => handleSubmit(e)} type="submit">Create recipe</button>
       </form>
       {response && <div>{response}</div>}

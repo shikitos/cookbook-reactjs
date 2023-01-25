@@ -1,20 +1,30 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, createElement } from 'react';
 import './BlogCard.css';
 import axios from 'axios';
 
 const BlogCard = ({cardCategory}) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([{}]);
   
   useEffect(() => {
-    axios.get('http://localhost:8000/api/')
-      .then(res => setData(res.data))
-      .catch(err => console.log(err));
+    getApiData();
   }, []);
+  
+  const getApiData = async () => {
+    let query = "Shio Test";
+    const response = await fetch(
+      `http://localhost:8000/api/recipes/search/shio test`
+    ).then((response) => response.json());
+  
+    // update the state
+    setData(response);
+    console.log(data);
+  };
 
   return (
     <div>
-      .234556 
-      {data ? data : ' Loading....'}
+      223232
+      {data ?  <div dangerouslySetInnerHTML={{ __html: data[0].instructions }} /> : ' Loading....'}
+      
     </div>
   )
 }

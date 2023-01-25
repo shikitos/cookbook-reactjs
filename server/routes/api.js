@@ -44,11 +44,14 @@ router.post('/recipes', (req, res) => {
   console.log("New POST request....");
   const newRecipe = new Recipe({
     name: req.body.name,
-    ingredients: req.body.ingredients,
-    instructions: req.body.instructions,
+    review: req.body.review,
+    tags: req.body.tags,
+    time: req.body.time,
+    description: req.body.description,
     image: req.body.image,
-    category: req.body.category,
-    description: req.body.description
+    instructions: req.body.instructions,
+    ingredients: req.body.ingredients,
+    nutrition: req.body.nutrition,
   });
   newRecipe
     .save()
@@ -57,11 +60,14 @@ router.post('/recipes', (req, res) => {
       createdRecipe: {
         id: result.id,
         name: result.name,
-        ingredients: result.ingredients,
-        instructions: result.instructions,
+        review: result.review,
+        tags: result.tags,
+        time: result.time,
+        description: result.description,
         image: result.image,
-        category: result.category,
-        description: result.description
+        instructions: result.instructions,
+        ingredients: result.ingredients,
+        nutrition: result.nutrition,
       }
     }))
     .catch(err => res.status(500).json({ error: err }));
@@ -91,6 +97,8 @@ router.delete('/recipes/:id', (req, res) => {
 
 // Search for a recipe by name
 router.get('/recipes/search/:name', (req, res) => {
+  console.log("GET BY NAME");
+  console.log(req.params.name)
   Recipe.find({ name: { $regex: req.params.name, $options: 'i' } })
   .then(recipes => res.json(recipes))
   .catch(err => res.status(400).json('Error: ' + err));
