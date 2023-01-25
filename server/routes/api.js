@@ -2,43 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/recipe');
 const mongoose = require('mongoose');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const bodyParser = require('body-parser');
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads')
-  },
-  filename: function(req, file, cb) {
-    cb(null, `${Date.now()}--${file.fieldname}`);
-  }
-});
-
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-
-const upload = multer({
-  storage: storage,
-  // limits: {
-  //   fileSize: 1024 * 1024 * 5
-  // },
-  // fileFilter: fileFilter
-});
-
-// app.post("/single", upload.single("image"), (req, res) => {
-//   if (req.file) {
-//     res.send("Single file uploaded successfully");
-//   } else {
-//   res.status(400).send("Please upload a valid image");
-// }
-// });
 
 router.get('/', (req, res) => {
   res.send('Welcome to the cookbook API!');
@@ -75,46 +40,13 @@ router.get('/recipes/:id', (req, res) => {
 });
 
 // Add a new recipe
-// Step 8 - the POST handler for processing the uploaded file
-
-router.post('/recipes', upload.single('image'), (req, res, next) => {
-  console.log(
-    "UPLOADING"
-  );
-	let obj = {
-		_id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    ingredients: req.body.ingredients,
-    instructions: req.body.instructions,
-		img: {
-			data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-			contentType: req.file.mimetype
-		},
-		category: req.body.category,
-    description: req.body.description
-	}
-	newRecipe.create(obj, (err, item) => {
-		if (err) {
-			console.log(err);
-		}
-		else {
-			console.log('saved');
-		}
-	});
-});
-
-
-
-/*router.post('/recipes', upload.single('image'), (req, res) => {
+router.post('/recipes', (req, res) => {
+  console.log("New POST request....");
   const newRecipe = new Recipe({
-    _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     ingredients: req.body.ingredients,
     instructions: req.body.instructions,
-    image: {
-      data: req.file.path,
-      contentType: req.file.mimetype
-    },
+    image: req.body.image,
     category: req.body.category,
     description: req.body.description
   });
@@ -123,7 +55,7 @@ router.post('/recipes', upload.single('image'), (req, res, next) => {
     .then(result => res.status(201).json({
       message: "Recipe added successfully",
       createdRecipe: {
-        _id: result._id,
+        id: result.id,
         name: result.name,
         ingredients: result.ingredients,
         instructions: result.instructions,
@@ -133,7 +65,7 @@ router.post('/recipes', upload.single('image'), (req, res, next) => {
       }
     }))
     .catch(err => res.status(500).json({ error: err }));
-});*/
+});
 
 
 

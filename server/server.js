@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config()
 const mongoose = require('mongoose');
 const app = express();
-const port = 3000;
+const port = 8000;
 const cors = require('cors');
 const apiRoutes = require('./routes/api.js');
 const bodyParser = require('body-parser');
@@ -15,11 +15,8 @@ mongoose.connect(mongodb_uri, { useNewUrlParser: true, useUnifiedTopology: true 
   .catch(err => console.log(err));
   
  
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
- 
-// Set EJS as templating engine
-app.set("view engine", "ejs");
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
   
 // Use API routes
 app.use('/api', apiRoutes);

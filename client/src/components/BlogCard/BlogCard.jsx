@@ -6,7 +6,7 @@ const BlogCard = ({cardCategory}) => {
   const [data, setData] = useState(null);
   
   useEffect(() => {
-    axios.get('http://localhost:3000/api/recipes')
+    axios.get('http://localhost:8000/api/')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);
