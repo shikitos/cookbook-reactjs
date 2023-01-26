@@ -10,6 +10,7 @@ const recipeSchema = new mongoose.Schema({
     instructions: { type: String },
     ingredients: { type: Array  },
     nutrition: { type: Array },
+    categories: { type: Array },
 });
 
 module.exports = new mongoose.model('Recipe', recipeSchema);

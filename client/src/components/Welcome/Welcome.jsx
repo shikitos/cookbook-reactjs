@@ -37,15 +37,11 @@ const Welcome = () => {
         </div>
       </div>
       
-      <div className="latest">
-        <div className="container">
-          <WelcomeSection 
-            sectionTitle = "Latest Posts"
-            sectionRouteName = "POSTS" 
-            routeToUrl = "blog/"
-          />
-        </div>
-      </div>
+      <WelcomeSection 
+        sectionTitle = "Latest Posts"
+        sectionRouteName = "POSTS" 
+        routeToUrl = "blog/"
+      />
       
 
     </main>

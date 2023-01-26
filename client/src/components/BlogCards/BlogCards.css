@@ -1,0 +1,26 @@
+.latest-content {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.latest-content article {
+    width: calc(1/3 * 100% - 15px);
+    margin: 0 20px 40px 0;
+    background: #fff;
+    -webkit-box-shadow: 0 0 10px 0 rgb(50 50 50 / 15%);
+    -moz-box-shadow: 0 0 10px 0 rgba(50,50,50,.15);
+    box-shadow: 0 0 10px 0 rgb(50 50 50 / 15%);
+    position: relative;
+}
+
+.latest-content img {
+    height: 267px;
+    width: 400px;
+}
+
+.latest-content__description {
+    padding: 0 15px 15px;
+    position: relative;
+}
