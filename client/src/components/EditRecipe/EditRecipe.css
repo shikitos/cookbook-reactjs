@@ -1,0 +1,44 @@
+.recipes {
+
+}
+
+.recipe_id {
+  color: var(--color-blue);
+  cursor: pointer;
+}
+
+.recipe_id:hover {
+  color: var(--color-blue-hover);
+}
+
+.exact_recipe {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.exact_recipe textarea {
+  max-width: 1200px;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.exact_recipe button {
+  border: 1px solid var(--color-black);
+  cursor: pointer;
+  background-color: var(--color-black);
+  color: white;
+  padding: 5px 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.exact_recipe button:hover {
+  background:  var(--color-red);
+}

@@ -53,7 +53,7 @@ function CreateRecipe() {
 
 
   return (
-    <div className="container">
+    <div className="container create-recipe">
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
         <input type="number" placeholder="Review" value={review} onChange={e => setReview(e.target.value)} />

@@ -11,30 +11,15 @@ router.get('/', (req, res) => {
 
 // Get all recipes
 router.get('/recipes', (req, res) => {
-  Recipe.find()
-    .select('_id name ingredients instructions image category')
+  Recipe.find({})
     .then(recipes => res.json(recipes))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.get('/recipes', (req, res) => {
-  Recipe.find()
-    .exec()
-    .then(recipes => {
-      res.status(200).json(recipes);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-});
 
 // Get a specific recipe by ID
 router.get('/recipes/:id', (req, res) => {
   Recipe.findById(req.params.id)
-    .select('_id name ingredients instructions image category')
     .then(recipe => res.json(recipe))
     .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -46,12 +31,13 @@ router.post('/recipes', (req, res) => {
     name: req.body.name,
     review: req.body.review,
     tags: req.body.tags,
-    time: req.body.time,
+    preparationTime: req.body.preparationTime,
     description: req.body.description,
     image: req.body.image,
     instructions: req.body.instructions,
     ingredients: req.body.ingredients,
     nutrition: req.body.nutrition,
+    creationTime: req.body.creationTime
   });
   newRecipe
     .save()
@@ -62,12 +48,13 @@ router.post('/recipes', (req, res) => {
         name: result.name,
         review: result.review,
         tags: result.tags,
-        time: result.time,
+        preparationTime: result.preparationTime,
         description: result.description,
         image: result.image,
         instructions: result.instructions,
         ingredients: result.ingredients,
         nutrition: result.nutrition,
+        creationTime: result.creationTime
       }
     }))
     .catch(err => res.status(500).json({ error: err }));
@@ -77,7 +64,8 @@ router.post('/recipes', (req, res) => {
 
 // Update a recipe
 router.patch('/recipes/:id', (req, res) => {
-  Recipe.update({ _id: req.params.id }, { $set: req.body })
+  console.log("Update recipe");
+  Recipe.updateOne({ _id: req.params.id }, { $set: req.body })
   .exec()
   .then(result => res.status(200).json(result))
   .catch(err => res.status(500).json({
