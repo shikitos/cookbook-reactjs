@@ -5,7 +5,7 @@ import './CreateRecipe.css'
 function CreateRecipe() {
   const [name, setName] = useState('');
   const [review, setReview] = useState('');
-  const [time, setTime] = useState('');
+  const [preparationTime, setPreparationTime] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [tags, setTags] = useState([]);
   const [instructions, setInstructions] = useState([]);
@@ -30,25 +30,29 @@ function CreateRecipe() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const recipe = {
-      name,
-      review,
-      tags: tags.split(", "),
-      time,
-      description,
-      image: imageData,
-      instructions,
-      ingredients: ingredients.split(", "),
-      nutrition: nutrition.split(", "),
-    };
-    console.log(recipe);
-    const res = await fetch('http://localhost:8000/api/recipes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(recipe)
-    });
-    const data = await res.text();
-    setResponse(data);
+    if (window.confirm("Do you want to create new post?")) {
+      const recipe = {
+        name,
+        review,
+        tags: tags.split(", "),
+        preparationTime,
+        description,
+        image: imageData,
+        instructions,
+        ingredients: ingredients.split(", "),
+        nutrition: nutrition.split(", "),
+      };
+      console.log(recipe);
+      const res = await fetch('http://localhost:8000/api/recipes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(recipe)
+      });
+      const data = await res.text();
+      setResponse(data);
+    } else {
+        return false;
+    }
   };
 
 
@@ -57,7 +61,7 @@ function CreateRecipe() {
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
         <input type="number" placeholder="Review" value={review} onChange={e => setReview(e.target.value)} />
-        <input type="text" placeholder="Time" value={time} onChange={e => setTime(e.target.value)} />
+        <input type="text" placeholder="Time" value={preparationTime} onChange={e => setPreparationTime(e.target.value)} />
         <textarea placeholder="Ingredients" value={ingredients} onChange={e => setIngredients(e.target.value)} />
         <textarea placeholder="Tags" value={tags} onChange={e => setTags(e.target.value)} />
         <textarea placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />

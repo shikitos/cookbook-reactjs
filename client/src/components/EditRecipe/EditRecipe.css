@@ -25,6 +25,9 @@
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
+  resize: none;
+  overflow: hidden;
+  min-height: 2em;
 }
 
 .exact_recipe button {
@@ -41,4 +44,22 @@
 
 .exact_recipe button:hover {
   background:  var(--color-red);
+}
+
+.recipe-updated {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: var(--color-green);
+  color: var(--color-gray);
+  
+}
+
+.recipe-updated__text {
+
+  padding: 10px 15px 5px 15px;
+}
+.recipe-updated__preloader {
+  background: var(--color-gray);
+  padding: 2.5px 15px;
 }
