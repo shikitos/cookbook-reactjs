@@ -27,6 +27,7 @@ router.post('/recipes', (req, res) => {
   console.log("New POST request....");
   const newRecipe = new Recipe({
     name: req.body.name,
+    urlIdName: req.body.urlIdName,
     review: req.body.review,
     tags: req.body.tags,
     preparationTime: req.body.preparationTime,
@@ -44,6 +45,7 @@ router.post('/recipes', (req, res) => {
       createdRecipe: {
         id: result.id,
         name: result.name,
+        urlIdName: result.urlIdName,
         review: result.review,
         tags: result.tags,
         preparationTime: result.preparationTime,
