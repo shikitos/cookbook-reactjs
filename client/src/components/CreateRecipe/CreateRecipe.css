@@ -17,6 +17,10 @@
   border-radius: 4px;
 }
 
+.create-recipe > form > div {
+
+}
+
 .dropzone {
   width: 80%;
   height: 500px;

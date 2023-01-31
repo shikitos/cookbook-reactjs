@@ -129,9 +129,9 @@ const EditRecipe = () => {
         <div className='recipes container'>
             { allRecipes["recipesList"] &&
             <div className='recipes-header'>
-                <h2>All recipes displayed below:</h2>
+                <h2>All Existed Recipes</h2>
                 <form>
-                    <input type='text' placeholder='Search recipe' className='recipes-search' onChange={e => handleSearchRecipe(e)} />
+                    <input type='text' placeholder='Search recipe by name' className='recipes-search' onChange={e => handleSearchRecipe(e)} />
                 </form>
             </div>
             }
@@ -142,34 +142,39 @@ const EditRecipe = () => {
                 <div className='recipe-updated__preloader' style={{background: `linear-gradient(to right, #f0efef ${progress}%, #33751f 0%)`}}></div>
             </div>
             }
-            {
-                (allRecipes["recipesList"] && !allRecipes["showAllRecipes"]) ? 
-                allRecipes[allRecipes["itemsToShow"]].map((recipe, index) => (
-                    <div 
-                        className="recipe_id" 
-                        key={index}
-                        onClick={e => {
-                            handleClick(e, recipe["_id"]);
-                            setAllRecipes({ ...allRecipes, recipesList: null, showAllRecipes: false, showSearchItems: false })
-                            
-                        }}
-                    >
-                        ID: {recipe["_id"]}, NAME: {recipe.name}
-                    </div>
-                )) 
-                
-                : "" 
-            }
+            <div className='recipes-list'>
+                {
+                    (allRecipes["recipesList"] && !allRecipes["showAllRecipes"]) ? 
+                    allRecipes[allRecipes["itemsToShow"]].map((recipe, index) => (
+                        <span 
+                            className="recipe_id" 
+                            key={index}
+                            onClick={e => {
+                                handleClick(e, recipe["_id"]);
+                                setAllRecipes({ ...allRecipes, recipesList: null, showAllRecipes: false, showSearchItems: false })
+                                
+                            }}
+                        >
+                            {index+1}. ID: <em>{recipe["_id"]}</em>, NAME: <em>{recipe.name}</em>
+                        </span>
+                    )) 
+                    
+                    : "" 
+                }
+            </div>
             
-            { (allRecipes["itemsToShow"] === "searchRecipes" && allRecipes["searchRecipes"].length === 0) && "Any matches were not found" }
+            { (allRecipes["itemsToShow"] === "searchRecipes" && allRecipes["searchRecipes"].length === 0) && <span className='recipes-empty'>No matches were found...</span> }
             
             {
                 (!allRecipes["showAllRecipes"] && !allRecipes["recipesList"]) ? 
-                <div className='exact_recipe'>
+                <div className='exact-recipe'>
                 {/* update state after loading */}
-                    <h1>Exact Recipe</h1>
+                <h1>Edit Recipe</h1>
                     {exactRecipe && 
-                        <div>
+                        <div className='exact-recipe__container'>
+                            <p>
+                                Recipe Name:
+                            </p>
                             <input 
                                 type="text" 
                                 placeholder="Name" 
@@ -177,24 +182,36 @@ const EditRecipe = () => {
                                 onFocus={e => console.log("here",e.target)} 
                                 onChange={e => setExactRecipe({ ...exactRecipe, name: e.target.value })} 
                             />
+                            <p>
+                                URL to related recipe page:
+                            </p>
                             <input 
                                 type="text" 
                                 placeholder="URL Id Name" 
                                 defaultValue={exactRecipe.urlIdName} 
                                 onChange={e => setExactRecipe({ ...exactRecipe, urlIdName: e.target.value })} 
                             />
+                            <p>
+                                Review:
+                            </p>
                             <input 
                                 type="number" 
                                 placeholder="Review" 
                                 defaultValue={exactRecipe.review} 
                                 onChange={e => setExactRecipe({ ...exactRecipe, review: e.target.value })} 
                             />
+                            <p>
+                                Preparation Time:
+                            </p>
                             <input 
                                 type="text" 
                                 placeholder="Praparation time" 
                                 defaultValue={exactRecipe.preparationTime} 
                                 onChange={e => setExactRecipe({ ...exactRecipe, preparationTime: e.target.value })} 
                             />
+                            <p>
+                                Ingredients:
+                            </p>
                             <textarea 
                                 placeholder="Ingredients" 
                                 defaultValue={exactRecipe.ingredients} 
@@ -202,6 +219,9 @@ const EditRecipe = () => {
                                 onBlur={e => handleTextareaOnFocus(e.target, false)} 
                                 onChange={e => setExactRecipe({ ...exactRecipe, ingredients: e.target.value })} 
                             />
+                            <p>
+                                Tags:
+                            </p>
                             <textarea 
                                 placeholder="Tags" 
                                 defaultValue={exactRecipe.tags} 
@@ -209,6 +229,9 @@ const EditRecipe = () => {
                                 onBlur={e => handleTextareaOnFocus(e.target, false)} 
                                 onChange={e => setExactRecipe({ ...exactRecipe, tags: e.target.value })} 
                             />
+                            <p>
+                                Recipe Description:
+                            </p>
                             <textarea 
                                 placeholder="Description" 
                                 defaultValue={exactRecipe.description} 
@@ -216,6 +239,9 @@ const EditRecipe = () => {
                                 onBlur={e => handleTextareaOnFocus(e.target, false)} 
                                 onChange={e => setExactRecipe({ ...exactRecipe, description: e.target.value})} 
                             />
+                            <p>
+                                Recipe Instruction:
+                            </p>
                             <textarea 
                                 placeholder="Instructions in the HTML format with images in base64 included" 
                                 defaultValue={exactRecipe.instructions} 
@@ -223,6 +249,9 @@ const EditRecipe = () => {
                                 onBlur={e => handleTextareaOnFocus(e.target, false)} 
                                 onChange={e => setExactRecipe({ ...exactRecipe, instructions: e.target.value})} 
                             />
+                            <p>
+                                Nutritions:
+                            </p>
                             <input 
                                 type="text" 
                                 placeholder="Nutritions" 

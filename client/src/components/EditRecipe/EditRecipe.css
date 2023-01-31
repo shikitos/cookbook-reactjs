@@ -1,23 +1,68 @@
-.recipes {
+.recipes-header input {
+  max-width: 1200px;
+  width: 100%;
+  padding: 5px 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  overflow: hidden;
+  min-height: 2em;
+}
 
+.recipes-header h2 {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.recipes-empty {
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-black);
+}
+
+.recipes-list {
+  display: flex;
+  flex-direction: column;
 }
 
 .recipe_id {
-  color: var(--color-blue);
+  color: var(--color-red);
   cursor: pointer;
+  transition: all 0.5s;
+  font-weight: 400;
+}
+
+.recipe_id em {
+  font-family: var(--main-font);
+  font-weight: 500
 }
 
 .recipe_id:hover {
-  color: var(--color-blue-hover);
+  color: var(--color-red-hover);
+  text-decoration: underline;
 }
 
-.exact_recipe {
+.exact-recipe {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
-.exact_recipe textarea {
+.exact-recipe h1 {
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+}
+
+
+.exact-recipe textarea, .exact-recipe input {
   max-width: 1200px;
   width: 100%;
   padding: 12px 20px;
@@ -30,7 +75,7 @@
   min-height: 2em;
 }
 
-.exact_recipe button {
+.exact-recipe button {
   border: 1px solid var(--color-black);
   cursor: pointer;
   background-color: var(--color-black);
@@ -42,7 +87,7 @@
   cursor: pointer;
 }
 
-.exact_recipe button:hover {
+.exact-recipe button:hover {
   background:  var(--color-red);
 }
 
