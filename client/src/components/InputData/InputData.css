@@ -1,0 +1,58 @@
+.inputdata-field, .inputdata-button {
+  width: 80%;
+  max-width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  overflow: hidden;
+  min-height: 2em;
+}
+
+textarea.inputdata-field {
+    width: 100%;
+    max-width: 100%;
+    padding-right: 45px;
+    z-index: 80;
+}
+
+
+.inputdata-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputdata-button {
+  font-weight: 600;
+  font-size: 28px;
+  padding: 2.5px 5px;
+}
+
+.inputdata-button:hover {
+  cursor: pointer;
+  background: var(--color-gray);
+}
+
+.inputdata-close {
+    z-index: 99;
+    position: absolute;
+    right: 25px;
+    top: 23.5px;
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.inputdata-close:hover {
+    cursor: pointer;
+    font-weight: 900;
+}
+
+.inputdata-textarea_wrapper {
+    width: 80%;
+    position: relative;
+    
+}

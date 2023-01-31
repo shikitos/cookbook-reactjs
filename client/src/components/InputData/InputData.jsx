@@ -6,6 +6,7 @@ const InputData = (props) => {
     const [additionalInput, setAdditionalInput] = useState(1);
     const [arrayOfInputs, setArrayOfInputs] = useState([]);
     const [stringOfInputs, setStringOfInputs] = useState('');
+    const [closeButtonStyle, setCloseButtonStyle] = useState('');
 
     useEffect(() => {
         if (props.element === 'input') {
@@ -16,6 +17,7 @@ const InputData = (props) => {
             throw new Error('Invalid input type');
         }
     }, []);
+
     
     const handleTextareaOnFocus = (textarea, focused) => {
         if (focused) {
@@ -24,6 +26,7 @@ const InputData = (props) => {
         } else {
             textarea.style.height = props.sizeOnFocus;
         }
+        setCloseButtonStyle(`${(textarea.style.height.substring(0, textarea.style.height.length - 2) / 2) - 10}px`);
     }
     
     const handleOnChangeComplexInput = (e, key, index, type) => {
@@ -43,48 +46,95 @@ const InputData = (props) => {
         e.preventDefault();
         setAdditionalInput(additionalInput + 1);
     }
+    
+    const handleCloseElement = (e) => {
+        e.preventDefault();
+        setAdditionalInput(additionalInput - 1);
+    }
 
     return (
         <>
             {element === 0 ? (
-                <div className={props.elementName}>
+                <div className={props.elementName + ' inputdata-container'}>
                 {
                     Array.from({ length: additionalInput }).map((key, index) => (
-                        <input
-                            className={props.className}
-                            type={props.type}
-                            onFocus={e => handleTextareaOnFocus(e.target, true)}
-                            onBlur={e => handleTextareaOnFocus(e.target, false)}
-                            value={props.value}
-                            placeholder={props.placeholder}
-							onChange={(e) => handleOnChangeComplexInput(e, props.elementName, index, props.type)}
-                        />
+                        <>
+                            {
+                                additionalInput.length > 1 ? 
+                                ''
+                                : 
+                                <p className="inputdata-title" key={key}>Recipe {props.title.toUpperCase()}</p>
+
+                            }
+                            <input
+                                className="inputdata-field"
+                                type={props.type}
+                                onFocus={e => handleTextareaOnFocus(e.target, true)}
+                                onBlur={e => handleTextareaOnFocus(e.target, false)}
+                                min={props.type === 'number' ? 0 : ''}
+                                max={props.type === 'number' ? 5 : ''}
+                                value={props.value}
+                                placeholder={props.placeholder}
+    							onChange={(e) => handleOnChangeComplexInput(e, props.elementName, index, props.type)}
+    							data-index={index}
+    							key={key}
+                            />
+                        </>
                     ))
                 }
                 {
                     props.array && 
-                    <button className='' onClick={e => handleAdd(e)}>
+                    <button className='inputdata-button' onClick={e => handleAdd(e)}>
                         +
                     </button>
                 }
                 </div>
             ) : (
-                <div className={props.elementName}>
+                <div className={props.elementName + ' inputdata-container'}>
                     {
                         Array.from({ length: additionalInput }).map((key, index) => (
-                            <textarea 
-                                type={props.type} 
-                                onFocus={e => handleTextareaOnFocus(e.target, true)}
-                                onBlur={e => handleTextareaOnFocus(e.target, false)}
-                                value={props.value}
-                                placeholder={props.placeholder}
-                                onChange={(e) => handleOnChangeComplexInput(e, props.elementName, index, props.type)}
-                            />
+                            <>
+                                {
+                                    index >= 1 ? 
+                                    ''
+                                    : 
+                                    <p className="inputdata-title" key={key}>Recipe {props.title.toUpperCase()}</p>
+                                }
+                                <div className='inputdata-textarea_wrapper'>
+                                    <textarea 
+                                        className="inputdata-field"
+                                        type={props.type} 
+                                        onFocus={e => handleTextareaOnFocus(e.target, true)}
+                                        onBlur={e => handleTextareaOnFocus(e.target, false)}
+                                        value={props.value}
+                                        placeholder={props.placeholder}
+                                        onChange={(e) => handleOnChangeComplexInput(e, props.elementName, index, props.type)}
+    							        data-index={index}
+    							        key={key}
+                                    />
+                                    {
+                                    index === 0 ? 
+                                    ''
+                                    : 
+                                    <span 
+                                        className="inputdata-close" 
+                                        data-related-input={index} 
+                                        onClick={e => handleCloseElement(e)}
+                                        key={key}
+                                        style={{top: closeButtonStyle}} 
+                                    >
+                                        &#215;
+                                    </span>
+                                    }
+                                </div>
+                                
+
+                            </>
                         ))
                     }   
                 {
                     props.array && 
-                    <button className='' onClick={e => handleAdd(e)}>
+                    <button className='inputdata-button' onClick={e => handleAdd(e)}>
                         +
                     </button>
                 }
