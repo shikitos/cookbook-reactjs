@@ -14,6 +14,7 @@ const recipeSchema = new mongoose.Schema({
     categories: { type: Array },
     creationTime : { type : Date, default: Date.now },
     category: { type : String },
+    servings: { type: Number },
 });
 
 module.exports = new mongoose.model('Recipe', recipeSchema);

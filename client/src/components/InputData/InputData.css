@@ -1,6 +1,6 @@
 .inputdata-field, .inputdata-button {
-  width: 80%;
-  max-width: 80%;
+  width: 100%;
+  max-width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -16,25 +16,37 @@ textarea.inputdata-field {
     max-width: 100%;
     padding-right: 45px;
     z-index: 80;
+    font-size: 14px
 }
 
 
 .inputdata-container {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 15px 0;
+  padding: 5px 0;
+
+}
+
+.divided {
+  border-bottom: 2px dashed #ccc;
 }
 
 .inputdata-button {
   font-weight: 600;
   font-size: 28px;
   padding: 2.5px 5px;
+  background: var(--color-black);
+  border: none;
+  color: #fff;
+  
 }
 
 .inputdata-button:hover {
   cursor: pointer;
-  background: var(--color-gray);
+  background: var(--color-red);
 }
 
 .inputdata-close {
@@ -52,7 +64,13 @@ textarea.inputdata-field {
 }
 
 .inputdata-textarea_wrapper {
-    width: 80%;
+    width: 100%;
     position: relative;
     
+}
+
+.inputdata-title {
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
 }

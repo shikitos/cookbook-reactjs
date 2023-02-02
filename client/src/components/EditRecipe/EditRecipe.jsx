@@ -1,5 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import './EditRecipe.css';
+import { InputData } from '../';
+import { createRecipeTitles } from '../../utils/constants'; 
     
 const EditRecipe = () => {
     const [allRecipes, setAllRecipes] = useState({ 
@@ -13,13 +15,14 @@ const EditRecipe = () => {
         _id: '',
         name: '', 
         urlIdName: '',
-        review: '', 
+        // review: '', 
         preparationTime: '', 
         ingredients: [], 
         tags: [], 
         instructions: '', 
         description: '', 
-        nutrition: []
+        nutrition: [],
+        servings: 1
     });
     const [status, setStatus] = useState({ 
         flag: false, 
@@ -28,8 +31,6 @@ const EditRecipe = () => {
     const [progress, setProgress] = useState(0);
     
     useEffect(() => {
-    
-        console.log(allRecipes);
         if (allRecipes["showAllRecipes"]) {
             setAllRecipes({ ...allRecipes, showAllRecipes: false });
             setExactRecipe(null);
@@ -65,10 +66,18 @@ const EditRecipe = () => {
             .then(response => response.json())
             .then(data => setExactRecipe(data)) 
     }
+    
+    const handleChildValue = (e, name) => {
+		console.log("e",e);
+        console.log("state",exactRecipe[name])
+	    setExactRecipe({
+	        ...exactRecipe,
+	        [name]: e
+		});
+	};
           
     const handleSubmit = async (e, id) => {
         e.preventDefault();
-        console.log(id);
         if (window.confirm("Do you want to submit?")) {
             const res = await fetch(`http://localhost:8000/api/recipes/${id}`, {
                 method: 'PATCH',
@@ -172,7 +181,31 @@ const EditRecipe = () => {
                 <h1>Edit Recipe</h1>
                     {exactRecipe && 
                         <div className='exact-recipe__container'>
-                            <p>
+                            { Object.keys(exactRecipe).filter(key => key !== 'imageData').map((key, index) => (
+                                <>
+                                    <InputData
+                                        // title = {createRecipeTitles[key].titleValue ? createRecipeTitles[key].titleValue : '' }
+                                        disabled = {key === '_id' ? true : false}
+                                        element = {key === 'servings' ? 'input' : 'textarea'}
+                                        key = {key+"componentInputData"}
+                                        elementName = {key}
+                                        type = {key === 'servings' ? 'number' : 'text'}
+                                        sizeOnFocus = {key === 'servings' ? '45px' : '55px'}
+                                        // placeholder = {createRecipeTitles[key].placeholder ? createRecipeTitles[key].placeholder : '' }
+                                        array = {Array.isArray(exactRecipe[key]) ? true : false}
+                                        onChange = {e => handleChildValue(e, key)} 
+                                        divider = {true}
+                                        defaultValue = {exactRecipe[key]} 
+                                        onFocus={e => console.log("here", e.target)} 
+                                        fetchedObj = {exactRecipe}
+                                        numberMin = {key === 'servings' ? '0' : ''}
+                                        numberMax = {key === 'servings' ? '' : ''}
+                                        lastChild = {index === Object.keys(exactRecipe).length - 2 ? true : false}
+                                    />
+                                </>
+                            ))} 
+                    
+                            {/* <p>
                                 Recipe Name:
                             </p>
                             <input 
@@ -257,7 +290,7 @@ const EditRecipe = () => {
                                 placeholder="Nutritions" 
                                 defaultValue={exactRecipe.nutrition} 
                                 onChange={e => setExactRecipe({ ...exactRecipe, nutrition: e.target.value})} 
-                            />
+                            /> */}
                         </div>
                     }
                         <button onClick={(e) => handleSubmit(e, exactRecipe['_id'])}>Save Changes</button>
