@@ -285,3 +285,64 @@ export const createRecipeTitles = {
     }
 
 }
+
+export const editRecipeTitles = {
+
+    _id: {
+        titleValie: "Recipe's id",
+        placeholder: "Here is should be recipe's id...",
+    },
+    name: {
+        titleValue: "Name of the dish",
+        placeholder: "Set recipe's name...",
+    },
+    urlIdName: {
+        titleValue: "String representing the Recipe's router",
+        placeholder: "Set recipe's URL...",
+    },
+    review: {
+        titleValue: "Review of the dish",
+        placeholder: "Set recipe's name...",
+    },
+    preparationTime: {
+        titleValue: "Total cooking time",
+        placeholder: "Write total cooking time [format: 1 hour, 50 minutes]...",
+    },
+    ingredients: {
+        titleValue: "Ingredients for the dish",
+        placeholder: "Add ingredients for the dish [ingredient must be added in its own field]...",
+    },
+    tags: {
+        titleValue: "Tags related to the recipe",
+        placeholder: "Add tags [tags must be added in its own field]...",
+    },
+    instructions: {
+        titleValue: "Cooking instructions",
+        placeholder: "Add instructions to the dish [each field is a cooking step]...",
+    },
+    description: {
+        titleValue: "Basic description of the dish",
+        placeholder: "Write a basic description of the dish [this information will appear at the beginning of the recipe page]...",
+    },
+    nutrition: {
+        titleValue: "Calories and nutrients in the recipe",
+        placeholder: "Add the calories and nutrients of this meal [each field is one nutrient/calorie - e.g., protein: 5 g]...",
+    },
+    servings: {
+        titleValue: "Number of servings",
+        placeholder: "Add the number of servings of the dish [just a number - for example, 5]...",
+    },
+    image: {
+        titleValue: "Recipe cover image",
+        placeholder: "Set recipe's name...",
+    },
+    creationTime: {
+        titleValue: "Recipe creation time",
+        placeholder: "None",
+    },
+    categories: {
+        titleValue: "Categories to which the recipe belongs",
+        placeholder: "Add recipe's categories [categories must be added in its own field]...",
+    }
+
+}

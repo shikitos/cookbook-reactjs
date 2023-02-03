@@ -1,23 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './InputData.css'
 
-const InputData = (props, {fetchedObj, elementName}) => {
+const InputData = (props) => {
     const [element, setElement] = useState(0);
     const [additionalInput, setAdditionalInput] = useState(1);
     const [arrayOfInputs, setArrayOfInputs] = useState([]);
     const [stringOfInputs, setStringOfInputs] = useState('');
     const [closeButtonStyle, setCloseButtonStyle] = useState('');
+    const textArea = useRef([]);
 
     useEffect(() => {
         if (props.element === 'input') {
-            console.log('Add new elemt',props)
             setElement(0);
         } else if (props.element === 'textarea') {
             setElement(1);
+            if (props.recipeArrayItemsCreated) {
+                setAdditionalInput(props.recipeArrayItemsCreated);
+            }
         } else {
             throw new Error('Invalid input type. It must be either input or textarea.');
         }
+        
+        
+
     }, []);
+    
+    /*useEffect(() => {
+        console.log("@@@@@@@@@",textArea.current.value)
+    
+        if (textArea.current.value) {
+        
+            if (props.array) {
+                //let newArrayOfInputs = [...arrayOfInputs];
+                setArrayOfInputs(arr => [...arr, textArea.current.value]);
+                console.log(props.elementName, arrayOfInputs)
+            } 
+        }
+    }, [])*/
 
     
     const handleTextareaOnFocus = (textarea, focused) => {
@@ -31,10 +50,12 @@ const InputData = (props, {fetchedObj, elementName}) => {
     }
     
     const handleOnChangeComplexInput = (e, key, index, type) => {
+        console.log(e.target.value);
         setArrayOfInputs([]);
 		if (props.array) {
 		    let newArrayOfInputs = [...arrayOfInputs];
             newArrayOfInputs[index] = type === "text" ? e.target.value : parseInt(e.target.value);
+            console.log("HERE", newArrayOfInputs);
             setArrayOfInputs(newArrayOfInputs);
 		    props.onChange(arrayOfInputs);
 		} else {
@@ -55,10 +76,26 @@ const InputData = (props, {fetchedObj, elementName}) => {
         setAdditionalInput(additionalInput + 1);
     }
     
-    const handleCloseElement = (e) => {
+    const handleCloseElement = (e, index) => {
         e.preventDefault();
         setAdditionalInput(additionalInput - 1);
+        console.log("ARR INDEX", index);
+        const indexToRemove = arrayOfInputs.indexOf(index);
+            setArrayOfInputs(arr => arr.splice(indexToRemove, 1)); // 2nd parameter means remove one item only
+        props.onChange(arrayOfInputs);
+        console.log("NEW arr", arrayOfInputs);
     }
+    
+
+    const fillComplexInput = (data, index) => {
+        if (props.array && props.recipeArrayItemsCreated > 1) {
+            return arrayOfInputs[index]
+        } else {
+            return data;
+        }
+    }
+    
+    
 
     return (
         <>
@@ -84,8 +121,7 @@ const InputData = (props, {fetchedObj, elementName}) => {
                                     max={props.type === 'number' ? 5 : ''}
                                     placeholder={props.placeholder}
         							onChange={(e) => handleOnChangeComplexInput(e, props.elementName, index, props.type)}
-        							data-index={index}
-        							defaulValue = {props.defaulValue}
+        							defaultValue = {props.defaulValue}
         							key={key  + "input" + index}
         							disabled={props.disabled}
                                 />
@@ -117,17 +153,14 @@ const InputData = (props, {fetchedObj, elementName}) => {
                                         type={props.type} 
                                         onFocus={e => handleTextareaOnFocus(e.target, true)}
                                         onBlur={e => handleTextareaOnFocus(e.target, false)}
-                                        value={props.value}
                                         placeholder={props.placeholder}
-                                        // defaulValue = {props.defaulValue}
-                                        onChange={(e) => {
-                                                handleOnChangeComplexInput(e, props.elementName, index, props.type);
-                                            }}
+                                        onChange={(e) => {handleOnChangeComplexInput(e, props.elementName, index, props.type)}}
                                         onKeyDown={e => handleOnKeyDown(e)}
-    							        data-index={index}
     							        key={key + "textareaInput" + index}
     							        disabled={props.disabled}
-                                    />
+    							        defaultValue={fillComplexInput(props.defaultValue, index)}
+                                        ref={textArea}
+						            />
                                     {
                                     index === 0 ? 
                                     ''
@@ -135,7 +168,7 @@ const InputData = (props, {fetchedObj, elementName}) => {
                                     <span 
                                         className="inputdata-close" 
                                         data-related-input={index} 
-                                        onClick={e => handleCloseElement(e)}
+                                        onClick={e => handleCloseElement(e, index)}
                                         key={key + "closeTag" + index}
                                         style={{top: closeButtonStyle}} 
                                     >

@@ -13,7 +13,6 @@ const recipeSchema = new mongoose.Schema({
     nutrition: { type: Array },
     categories: { type: Array },
     creationTime : { type : Date, default: Date.now },
-    category: { type : String },
     servings: { type: Number },
 });
 

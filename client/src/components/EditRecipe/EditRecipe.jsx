@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import './EditRecipe.css';
 import { InputData } from '../';
-import { createRecipeTitles } from '../../utils/constants'; 
+import { editRecipeTitles } from '../../utils/constants'; 
     
 const EditRecipe = () => {
     const [allRecipes, setAllRecipes] = useState({ 
@@ -22,7 +22,9 @@ const EditRecipe = () => {
         instructions: '', 
         description: '', 
         nutrition: [],
-        servings: 1
+        servings: 1,
+        categories: [],
+        creationTime: ''
     });
     const [status, setStatus] = useState({ 
         flag: false, 
@@ -31,6 +33,7 @@ const EditRecipe = () => {
     const [progress, setProgress] = useState(0);
     
     useEffect(() => {
+    
         if (allRecipes["showAllRecipes"]) {
             setAllRecipes({ ...allRecipes, showAllRecipes: false });
             setExactRecipe(null);
@@ -43,7 +46,6 @@ const EditRecipe = () => {
             let interval;
         
             if (progress === 0) {
-                console.log("interval < 100... start interval")
                 interval = setInterval(() => {
                     setProgress(progress => {
                         if (progress >= 100) {
@@ -68,8 +70,6 @@ const EditRecipe = () => {
     }
     
     const handleChildValue = (e, name) => {
-		console.log("e",e);
-        console.log("state",exactRecipe[name])
 	    setExactRecipe({
 	        ...exactRecipe,
 	        [name]: e
@@ -92,15 +92,7 @@ const EditRecipe = () => {
             return false;
         }
     }
-          
-    const handleTextareaOnFocus = (textarea, focused) => {
-        if (focused) {
-            textarea.style.height = "75px";
-            textarea.style.height = ( 25 + textarea.scrollHeight ) + "px";
-        } else {
-            textarea.style.height = "75px";
-        }
-    }
+
     
     const handleSearchRecipe = (e) => {
         if (e.target.value) {
@@ -130,6 +122,17 @@ const EditRecipe = () => {
         }
         console.log(allRecipes);
         console.log((allRecipes["itemsToShow"] === "searchRecipes" && allRecipes["searchRecipes"].length === 0) ? true : false);
+    }
+    
+    const setInputPlaceholderOrTitle = (eventType, key) => {
+        if (editRecipeTitles[key]) {
+            let returnedValue = eventType === "title" ? 
+            editRecipeTitles[key].titleValue :
+            editRecipeTitles[key].placeholder;
+            return returnedValue;
+        } else {
+            return 'None'
+        }
     }
         
         
@@ -179,120 +182,34 @@ const EditRecipe = () => {
                 <div className='exact-recipe'>
                 {/* update state after loading */}
                 <h1>Edit Recipe</h1>
-                    {exactRecipe && 
+                    {exactRecipe ?
                         <div className='exact-recipe__container'>
-                            { Object.keys(exactRecipe).filter(key => key !== 'imageData').map((key, index) => (
+                            { Object.keys(exactRecipe).filter(key => key !== 'image' && key !== "time" && key !== "__v" && key !== 'review').map((key, index) => (
                                 <>
+
                                     <InputData
-                                        // title = {createRecipeTitles[key].titleValue ? createRecipeTitles[key].titleValue : '' }
-                                        disabled = {key === '_id' ? true : false}
+                                        title = {setInputPlaceholderOrTitle("title", key)}
+                                        disabled = {key === '_id' || key === 'creationTime' ? true : false}
                                         element = {key === 'servings' ? 'input' : 'textarea'}
                                         key = {key+"componentInputData"}
                                         elementName = {key}
+                                        recipeArrayItemsCreated = {Array.isArray(exactRecipe[key]) ? exactRecipe[key].length : ''}
                                         type = {key === 'servings' ? 'number' : 'text'}
                                         sizeOnFocus = {key === 'servings' ? '45px' : '55px'}
-                                        // placeholder = {createRecipeTitles[key].placeholder ? createRecipeTitles[key].placeholder : '' }
+                                        placeholder = {setInputPlaceholderOrTitle("placeholder", key)}
                                         array = {Array.isArray(exactRecipe[key]) ? true : false}
-                                        onChange = {e => handleChildValue(e, key)} 
                                         divider = {true}
                                         defaultValue = {exactRecipe[key]} 
                                         onFocus={e => console.log("here", e.target)} 
-                                        fetchedObj = {exactRecipe}
                                         numberMin = {key === 'servings' ? '0' : ''}
                                         numberMax = {key === 'servings' ? '' : ''}
                                         lastChild = {index === Object.keys(exactRecipe).length - 2 ? true : false}
+                                        onChange = {e => handleChildValue(e, key)} 
                                     />
                                 </>
                             ))} 
-                    
-                            {/* <p>
-                                Recipe Name:
-                            </p>
-                            <input 
-                                type="text" 
-                                placeholder="Name" 
-                                defaultValue={exactRecipe.name} 
-                                onFocus={e => console.log("here",e.target)} 
-                                onChange={e => setExactRecipe({ ...exactRecipe, name: e.target.value })} 
-                            />
-                            <p>
-                                URL to related recipe page:
-                            </p>
-                            <input 
-                                type="text" 
-                                placeholder="URL Id Name" 
-                                defaultValue={exactRecipe.urlIdName} 
-                                onChange={e => setExactRecipe({ ...exactRecipe, urlIdName: e.target.value })} 
-                            />
-                            <p>
-                                Review:
-                            </p>
-                            <input 
-                                type="number" 
-                                placeholder="Review" 
-                                defaultValue={exactRecipe.review} 
-                                onChange={e => setExactRecipe({ ...exactRecipe, review: e.target.value })} 
-                            />
-                            <p>
-                                Preparation Time:
-                            </p>
-                            <input 
-                                type="text" 
-                                placeholder="Praparation time" 
-                                defaultValue={exactRecipe.preparationTime} 
-                                onChange={e => setExactRecipe({ ...exactRecipe, preparationTime: e.target.value })} 
-                            />
-                            <p>
-                                Ingredients:
-                            </p>
-                            <textarea 
-                                placeholder="Ingredients" 
-                                defaultValue={exactRecipe.ingredients} 
-                                onFocus={e => handleTextareaOnFocus(e.target, true)} 
-                                onBlur={e => handleTextareaOnFocus(e.target, false)} 
-                                onChange={e => setExactRecipe({ ...exactRecipe, ingredients: e.target.value })} 
-                            />
-                            <p>
-                                Tags:
-                            </p>
-                            <textarea 
-                                placeholder="Tags" 
-                                defaultValue={exactRecipe.tags} 
-                                onFocus={e => handleTextareaOnFocus(e.target, true)}  
-                                onBlur={e => handleTextareaOnFocus(e.target, false)} 
-                                onChange={e => setExactRecipe({ ...exactRecipe, tags: e.target.value })} 
-                            />
-                            <p>
-                                Recipe Description:
-                            </p>
-                            <textarea 
-                                placeholder="Description" 
-                                defaultValue={exactRecipe.description} 
-                                onFocus={e => handleTextareaOnFocus(e.target, true)}  
-                                onBlur={e => handleTextareaOnFocus(e.target, false)} 
-                                onChange={e => setExactRecipe({ ...exactRecipe, description: e.target.value})} 
-                            />
-                            <p>
-                                Recipe Instruction:
-                            </p>
-                            <textarea 
-                                placeholder="Instructions in the HTML format with images in base64 included" 
-                                defaultValue={exactRecipe.instructions} 
-                                onFocus={e => handleTextareaOnFocus(e.target, true)}  
-                                onBlur={e => handleTextareaOnFocus(e.target, false)} 
-                                onChange={e => setExactRecipe({ ...exactRecipe, instructions: e.target.value})} 
-                            />
-                            <p>
-                                Nutritions:
-                            </p>
-                            <input 
-                                type="text" 
-                                placeholder="Nutritions" 
-                                defaultValue={exactRecipe.nutrition} 
-                                onChange={e => setExactRecipe({ ...exactRecipe, nutrition: e.target.value})} 
-                            /> */}
                         </div>
-                    }
+                    : 'Loading recipes...'}
                         <button onClick={(e) => handleSubmit(e, exactRecipe['_id'])}>Save Changes</button>
                         <button onClick={() => setAllRecipes({ ...allRecipes, showAllRecipes: true,  })}>Show All Recipes</button>
                 </div>
