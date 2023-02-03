@@ -19,6 +19,9 @@ textarea.inputdata-field {
     font-size: 14px
 }
 
+textarea.inputdata-field:disabled {
+  background: var(--color-gray);
+}
 
 .inputdata-container {
   width: 80%;

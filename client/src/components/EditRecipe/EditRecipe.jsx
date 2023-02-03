@@ -120,8 +120,6 @@ const EditRecipe = () => {
                 itemsToShow: "recipesList"
             });
         }
-        console.log(allRecipes);
-        console.log((allRecipes["itemsToShow"] === "searchRecipes" && allRecipes["searchRecipes"].length === 0) ? true : false);
     }
     
     const setInputPlaceholderOrTitle = (eventType, key) => {
@@ -212,8 +210,16 @@ const EditRecipe = () => {
                             ))} 
                         </div>
                     : 'Loading recipes...'}
-                        <button onClick={(e) => handleSubmit(e, exactRecipe['_id'])}>Save Changes</button>
-                        <button onClick={() => setAllRecipes({ ...allRecipes, showAllRecipes: true,  })}>Show All Recipes</button>
+                        <button className="exact-recipe__save" onClick={(e) => handleSubmit(e, exactRecipe['_id'])}>Save Changes</button>
+                        <button className="exact-recipe__back" onClick={() => setAllRecipes({ 
+                                recipesList: null, 
+                                showAllRecipes: true, 
+                                searchRecipes: [], 
+                                showSearchItems: false, 
+                                itemsToShow: 'recipesList'   
+                            })}>
+                            Show All Recipes
+                        </button>
                 </div>
             : ''}
         </div>

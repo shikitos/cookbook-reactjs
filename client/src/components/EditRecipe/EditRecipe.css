@@ -95,9 +95,13 @@
   border-radius: 4px;
 }
 
-.exact-recipe button:hover {
+.exact-recipe button.exact-recipe__save:hover {
+  background:  var(--color-green);
+}
+.exact-recipe button.exact-recipe__back:hover {
   background:  var(--color-red);
 }
+
 
 .recipe-updated {
   position: fixed;

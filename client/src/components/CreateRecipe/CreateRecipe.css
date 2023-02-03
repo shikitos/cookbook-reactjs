@@ -37,5 +37,5 @@
 }
 
 .create-recipe button[type="submit"]:hover {
-  background-color: var(--color-red);
+  background-color: var(--color-green);
 }

@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Header, CreateRecipe, Welcome, EditRecipe } from './components';
+import { Header, CreateRecipe, Welcome, EditRecipe, Footer } from './components';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
           <Route path="/categories/recipes/:name" element={<ComponentName />} />
           <Route path="/search/:" element={< />} /> */}
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
