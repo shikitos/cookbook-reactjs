@@ -7,6 +7,8 @@ const InputData = (props) => {
     const [arrayOfInputs, setArrayOfInputs] = useState([]);
     const [stringOfInputs, setStringOfInputs] = useState('');
     const [closeButtonStyle, setCloseButtonStyle] = useState('');
+    const [temp, setTemp] = useState(0);
+    const [state, setState] = useState('');
     const textArea = useRef([]);
 
     useEffect(() => {
@@ -25,18 +27,11 @@ const InputData = (props) => {
 
     }, []);
     
-    /*useEffect(() => {
-        console.log("@@@@@@@@@",textArea.current.value)
-    
-        if (textArea.current.value) {
-        
-            if (props.array) {
-                //let newArrayOfInputs = [...arrayOfInputs];
-                setArrayOfInputs(arr => [...arr, textArea.current.value]);
-                console.log(props.elementName, arrayOfInputs)
-            } 
+    useEffect(() => {
+        if (props.array && props.recipeArrayItemsCreated > 1) {
+            setArrayOfInputs(props.defaultValue);
         }
-    }, [])*/
+    }, )
 
     
     const handleTextareaOnFocus = (textarea, focused) => {
@@ -49,19 +44,23 @@ const InputData = (props) => {
         setCloseButtonStyle(`${(textarea.style.height.substring(0, textarea.style.height.length - 2) / 2) - 10}px`);
     }
     
-    const handleOnChangeComplexInput = (e, key, index, type) => {
-        console.log(e.target.value);
-        setArrayOfInputs([]);
+    const handleOnChangeComplexInput = (e, key, index, type, isInput) => {
 		if (props.array) {
 		    let newArrayOfInputs = [...arrayOfInputs];
             newArrayOfInputs[index] = type === "text" ? e.target.value : parseInt(e.target.value);
-            console.log("HERE", newArrayOfInputs);
             setArrayOfInputs(newArrayOfInputs);
-		    props.onChange(arrayOfInputs);
+		    props.onChange(newArrayOfInputs);
 		} else {
-		    setStringOfInputs(type === "text" ? e.target.value : parseInt(e.target.value));
-		    props.onChange(stringOfInputs);
+		    if (isInput) {
+		        setStringOfInputs(type === "text" ? e.target.value : parseInt(e.target.value));
+		        props.onChange(stringOfInputs);
+		    } else {
+		        let tempString = e.target.value;
+                setStringOfInputs(tempString);
+		        props.onChange(tempString);
+		    }
 		}
+        return e.target.value;
 	}
 	
 	const handleOnKeyDown = (e) => {
@@ -78,12 +77,13 @@ const InputData = (props) => {
     
     const handleCloseElement = (e, index) => {
         e.preventDefault();
+        console.log("Delete element №: " + index, "element content: " + arrayOfInputs[index])
         setAdditionalInput(additionalInput - 1);
-        console.log("ARR INDEX", index);
-        const indexToRemove = arrayOfInputs.indexOf(index);
-            setArrayOfInputs(arr => arr.splice(indexToRemove, 1)); // 2nd parameter means remove one item only
-        props.onChange(arrayOfInputs);
-        console.log("NEW arr", arrayOfInputs);
+        let newArrayOfInputs = [...arrayOfInputs];
+        newArrayOfInputs.splice(index, 1);
+        setArrayOfInputs(newArrayOfInputs);
+        props.onChange(newArrayOfInputs);
+        e.target.value = '';
     }
     
 
@@ -120,7 +120,7 @@ const InputData = (props) => {
                                     min={props.type === 'number' ? 0 : ''}
                                     max={props.type === 'number' ? 5 : ''}
                                     placeholder={props.placeholder}
-        							onChange={(e) => handleOnChangeComplexInput(e, props.elementName, index, props.type)}
+        							onChange={(e) => handleOnChangeComplexInput(e, index, props.type, true)}
         							defaultValue = {props.defaulValue}
         							key={key  + "input" + index}
         							disabled={props.disabled}
@@ -149,6 +149,7 @@ const InputData = (props) => {
                                 }
                                 <div className='inputdata-textarea_wrapper'>
                                     <textarea 
+                                        
                                         className="inputdata-field"
                                         type={props.type} 
                                         onFocus={e => handleTextareaOnFocus(e.target, true)}
@@ -158,7 +159,7 @@ const InputData = (props) => {
                                         onKeyDown={e => handleOnKeyDown(e)}
     							        key={key + "textareaInput" + index}
     							        disabled={props.disabled}
-    							        defaultValue={fillComplexInput(props.defaultValue, index)}
+    							        value={fillComplexInput(props.defaultValue, index)}
                                         ref={textArea}
 						            />
                                     {

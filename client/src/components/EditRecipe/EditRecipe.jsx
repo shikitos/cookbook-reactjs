@@ -180,13 +180,15 @@ const EditRecipe = () => {
             {
                 (!allRecipes["showAllRecipes"] && !allRecipes["recipesList"]) ? 
                 <div className='exact-recipe'>
-                {/* update state after loading */}
                 <h1>Edit Recipe</h1>
                     {exactRecipe ?
                         <div className='exact-recipe__container'>
                             { Object.keys(exactRecipe).filter(key => key !== 'image' && key !== "time" && key !== "__v" && key !== 'review').map((key, index) => (
                                 <>
-
+                                {/* I found out I did a big mistake.
+                                    Now every changing of any input triggers
+                                    Rerending all inputs....
+                                */}
                                     <InputData
                                         title = {setInputPlaceholderOrTitle("title", key)}
                                         disabled = {key === '_id' || key === 'creationTime' ? true : false}
