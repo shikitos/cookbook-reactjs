@@ -1,0 +1,110 @@
+footer.footer {
+    background: var(--color-black);
+    color: var(--color-gray);
+    margin-top: 35px;
+}
+
+
+.footer h2 {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.footer h3 {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+.footer-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 35px;
+    flex-wrap: wrap;
+}
+
+.footer-contact__main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.footer-contact__main > .footer-contact__line {
+    width: 100%;
+    flex: 50%;
+    margin-bottom: 12.5px;
+    
+}
+
+.footer-contact__line {
+    line-height: 10px
+}
+
+.footer-contact {
+    width: 100%;
+    flex: 50%;
+}
+
+.footer-content {
+    width: 100%;
+    flex: 50%;
+}
+
+.footer-content__main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-content__main > div.footer-content__line {
+    width: 100%;
+    flex: 50%;
+}
+
+.footer-content__column ul > li {
+    margin-bottom: 12.5px;
+}
+
+.footer-content__column ul > li:hover,
+.footer-contact__line a:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--color-red)
+}
+
+.footer-line__icons svg:hover {
+    fill: var(--color-red);
+    cursor: pointer;
+    
+}
+
+.footer-line__icons svg #SVGRepo_iconCarrier > path:hover {
+    fill: var(--color-red);
+}
+
+.footer-content__column:nth-child(2) {
+    margin: auto;
+}
+
+
+.footer-line__icons svg{
+    width: 30px;
+    height: 30px;
+    margin-right: 25px;
+}
+
+.footer-rules {
+    margin: 45px 0;
+    flex: 100%;
+    text-align: center;
+}
+
+.footer-rules span {
+    text-decoration: underline;
+}
