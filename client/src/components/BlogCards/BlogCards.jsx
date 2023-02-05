@@ -18,7 +18,6 @@ const BlogCards = ({cardCategory}) => {
   
     // update the state
     setData(response);
-    console.log(data);
   };
 
   return (

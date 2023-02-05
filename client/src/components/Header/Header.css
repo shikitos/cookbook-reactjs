@@ -10,7 +10,6 @@ button {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: --var(--color-red);
 }
 
 .header-logo, .header-nav button > img{

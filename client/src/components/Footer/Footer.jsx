@@ -30,10 +30,10 @@ const Footer = () => {
                             <h2>Follow Me</h2>
                             {/* <div>INST ICONS</div> */}
                             <div className="footer-line__icons">
-                                <a href="https://www.linkedin.com/in/nikitashitov/"><LinkedInIcon /></a>
-                                <a href="https://t.me/Shikitos"><TelegramIcon /></a>
-                                <a href="https://github.com/shikitos/"><GitHubIcon /></a>
-                                <a href="https://www.instagram.com/shikitos/"><InstagramIcon /></a>
+                                <a href="https://www.linkedin.com/in/nikitashitov/" rel='noreferrer' target='_blank'><LinkedInIcon /></a>
+                                <a href="https://t.me/Shikitos" rel='noreferrer' target='_blank'><TelegramIcon /></a>
+                                <a href="https://github.com/shikitos/" rel='noreferrer' target='_blank'><GitHubIcon /></a>
+                                <a href="https://www.instagram.com/shikitos/" rel='noreferrer' target='_blank'><InstagramIcon /></a>
                             </div>
                         </div>
                         <div className='footer-contact__line'>

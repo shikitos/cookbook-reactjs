@@ -5,47 +5,37 @@ import { exampleURLImage } from "../../utils/constants";
 
 const Welcome = () => {
 
-  return (
+    return (
   
-    <main className="site-main">
+        <main className="site-main">
     
-      <div className="posts">
-        <div className="container">
-          <div className="section-post">
-            <Post 
-              title = "Shio Ramen 塩ラーメン"
-              imagePath = {exampleURLImage}
-              postUrl="shio-ramen/"
-            />
-            <Post 
-              title="Lunar New Year Recipes for Good Luck & Happiness"
-              imagePath = {exampleURLImage}
-              postUrl="chinese-new-year-recipes/"
-            />
-            <Post 
-              title="Katsu Curry カツカレー"
-              imagePath = {exampleURLImage}
-              postUrl="katsu-curry/"
-            />
-            <Post 
-              title="16 Cozy & Nutritious Japanese Soups to Make at Home"
-              imagePath = {exampleURLImage}
-              postUrl="best-japanese-soups-recipes/"
-            />
-            
-          </div>
+        <div className="posts">
+            <div className="container">
+                <div className="section-post">
+                    <Post 
+                        name="Shio Test"
+                    />
+                    <Post 
+                        name="Curry Udon カレーうどん"
+                    />
+                    <Post 
+                        name="my recipe"
+                    />
+                    <Post 
+                  
+                    />
+                
+                </div>
+            </div>
         </div>
-      </div>
       
-      <WelcomeSection 
-        sectionTitle = "Latest Posts"
-        sectionRouteName = "POSTS" 
-        routeToUrl = "blog/"
-      />
-      
-
-    </main>
-  )
+        <WelcomeSection 
+            sectionTitle = "Latest Posts"
+            sectionRouteName = "POSTS" 
+            routeToUrl = "blog/"
+        />
+        </main>
+    )
 };
 
 export default Welcome;

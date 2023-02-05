@@ -7,3 +7,5 @@ export { default as CreateRecipe } from "./CreateRecipe/CreateRecipe";
 export { default as EditRecipe } from "./EditRecipe/EditRecipe";
 export { default as InputData } from "./InputData/InputData";
 export { default as Footer } from "./Footer/Footer";
+export { default as Recipe } from "./Recipe/Recipe";
+export { default as NotFound } from "./NotFound/NotFound";

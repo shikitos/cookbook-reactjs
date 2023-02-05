@@ -7,6 +7,8 @@ const recipeSchema = new mongoose.Schema({
     tags: { type: Array },
     preparationTime: { type: String },
     description: { type: String },
+    recipeEmotions: {type : String },
+    howToStep: { type: Array },
     image: { type: String },
     instructions: { type: Array },
     ingredients: { type: Array  },
