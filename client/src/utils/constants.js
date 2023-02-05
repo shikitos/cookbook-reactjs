@@ -279,9 +279,17 @@ export const createRecipeTitles = {
         titleValue: "Servings",
         placeholder: "Add the number of servings of the dish [just a number - for example, 5]...",
     },
+    urlIdName: {
+        titleValue: "Name of route",
+        placeholder: "Write the name in string format, it will be a route (url path) [just a string - for example, shio-ramen]...",
+    },
     imageData: {
         titleValue: "Recipe cover image",
         placeholder: "Set recipe's name...",
+    },
+    howToStep: {
+        titleValue: "Supplement, tips and instructions",
+        placeholder: "Write your supplement, tips and instructions for the recipe [it must be HTML format, each block is one recipe block]..."
     }
 
 }
@@ -296,9 +304,13 @@ export const editRecipeTitles = {
         titleValue: "Name of the dish",
         placeholder: "Set recipe's name...",
     },
+    howToStep: {
+        titleValue: "Supplement, tips and instructions",
+        placeholder: "Write your supplement, tips and instructions for the recipe [it must be HTML format, each block is one recipe block]..."
+    },
     urlIdName: {
-        titleValue: "String representing the Recipe's router",
-        placeholder: "Set recipe's URL...",
+        titleValue: "Name of route",
+        placeholder: "Write the name in string format, it will be a route (url path) [just a string - for example, shio-ramen]..",
     },
     review: {
         titleValue: "Review of the dish",
@@ -343,6 +355,6 @@ export const editRecipeTitles = {
     categories: {
         titleValue: "Categories to which the recipe belongs",
         placeholder: "Add recipe's categories [categories must be added in its own field]...",
-    }
+    },
 
 }

@@ -22,7 +22,7 @@ const Welcome = () => {
                         name="my recipe"
                     />
                     <Post 
-                  
+                        name="Rice with nothin"
                     />
                 
                 </div>

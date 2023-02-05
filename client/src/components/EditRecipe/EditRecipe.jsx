@@ -24,7 +24,8 @@ const EditRecipe = () => {
         nutrition: [],
         servings: 1,
         categories: [],
-        creationTime: ''
+        creationTime: '',
+        howToStep: []
     });
     const [status, setStatus] = useState({ 
         flag: false, 
