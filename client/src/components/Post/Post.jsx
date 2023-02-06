@@ -1,22 +1,44 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './Post.css';
 import { useNavigate } from 'react-router-dom';
+import { ReactComponent as Star } from '../../utils/star.svg';
 
 const Post = (props) => {
     let navigate = useNavigate();
     const [recipe, setRecipe] = useState(null);
+    const divRef = useRef();
   
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://localhost:8000/api/recipes/search/${props.name}`);
-            const data = await response.json();
-            setRecipe(data[0]);
+            try {
+                const response = await fetch(`http://localhost:8000/api/recipes/search/${props.name}`);
+                const data = await response.json();
+                setRecipe(data[0]);
+            } catch (err) {
+                console.error(err);
+            }
         };
+        
           
         fetchData();
     }, []);
+    
+    useEffect(() => {
+        if (divRef.current) updateReviewData();
+    }, [divRef.current]);
+    
+    
+    const updateReviewData = () => {
+        if (recipe["review"] || recipe.review) {
+            const svgArray = divRef.current.children;
+            for (let i = 1; i < 6; i++) {
+                const fill = i - 1 < Math.floor(recipe["review"].toFixed(2)) ? "#000" : "#fff";
+                svgArray[i].children[0].children[0].children[0].style.fill = fill;
+            }
+        }
+    }
   
-    function handleClick(e, path) {
+    const  handleClick = (e, path) => {
         e.preventDefault();
         console.log(path);
         navigate(path, {state: recipe});
@@ -30,11 +52,24 @@ const Post = (props) => {
                         className={`post-card ${recipe["_id"]}`}
                     >
                         <img 
-                            src={recipe.image}
-                            alt={recipe.name}
+                            className='post-image'
+                            src={recipe["image"]}
+                            alt={recipe["name"]}
                         />
-                        <h2>{recipe.name}</h2>
-                        <span></span>
+                        <h2 className='post-heading'>
+                            {recipe["name"]}
+                        </h2>
+                        <div className='post-reviews' ref={divRef}>
+                            <p>{recipe["review"].toFixed(2)}</p>
+                            {[...Array(5)].map((value, index) => (
+                                <span key={index}>
+                                    <Star />
+                                </span>
+                            ))}
+                        </div>
+                        { props.extended && 
+                            <div>Extended</div>
+                        }
                     </article>
                 }
             </>

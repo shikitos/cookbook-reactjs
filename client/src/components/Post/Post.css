@@ -15,6 +15,7 @@
     box-shadow: 0 0 10px 0 rgba(50, 50, 50, 0.8);
 }
 
+
 .post-card img {
     display: block;
 }
@@ -25,4 +26,19 @@
     margin: 0 auto;
     font-size: 21px;
     font-weight: 700;
+}
+
+.post-card > div {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.post-reviews > span {
+    display: flex;
+    height: 16px;
+}
+
+.post-reviews > p {
+    margin-right: 5px;
 }

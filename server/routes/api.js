@@ -28,7 +28,7 @@ router.post('/recipes', (req, res) => {
     const newRecipe = new Recipe({
         name: req.body.name,
         urlIdName: req.body.urlIdName,
-        review: req.body.review,
+        review: 0,
         tags: req.body.tags,
         preparationTime: req.body.preparationTime,
         description: req.body.description,
@@ -87,14 +87,14 @@ router.delete('/recipes/:id', (req, res) => {
 
 // Update review and return it 
 router.patch('/recipes/update-review/:id', (req, res) => {
-    console.log("Update review" + req.body.review);
+    console.log("Update review " + req.body.review);
     Recipe.findOne({ _id: req.params.id })
         .exec((err, recipe) => {
             if (err) {
                 return res.status(500).json({ error: err });
             }
-            if (!isNaN(recipe.review) && !isNaN(req.body.review)) {
-                let newReview = (recipe.review ? recipe.review : 0 + req.body.review) / 2;
+            if (!isNaN(req.body.review)) {
+                let newReview = (recipe.review + req.body.review) / 2;
                 console.log(`Review = old ${recipe.review} + new ${req.body.review}. New Review = ${newReview}`);
                 Recipe.updateOne({ _id: req.params.id }, { $set: { review: newReview } }, { new: true })
                 .exec((err, result) => {

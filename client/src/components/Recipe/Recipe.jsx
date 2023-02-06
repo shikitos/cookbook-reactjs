@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import "./Recipe.css";
 import { useLocation } from 'react-router-dom';
 import { ReactComponent as Star } from '../../utils/star.svg';
+import { ReactComponent as PreparationTime } from '../../utils/preparationTime.svg';
 
 const Recipe = () => {
     const location = useLocation();
@@ -15,6 +16,7 @@ const Recipe = () => {
     
     useEffect(() => {
         const updateData = async () => {
+            console.log("Value review", review["value"])
             try {
                 const response = await fetch(`http://localhost:8000/api/recipes/update-review/${recipe["_id"]}`, {
                     method: 'PATCH',
@@ -37,7 +39,8 @@ const Recipe = () => {
             setReview({ ...review, shouldBeUpdated: false });
             updateData();
         } 
-        updateReviewData();
+        
+        if (recipe) updateReviewData();
         
     }, [review, recipe]);
     
@@ -47,10 +50,12 @@ const Recipe = () => {
     }
     
     const updateReviewData = () => {
-        if (recipe["review"]) {
+        if (!spanRef.current) return;
+        if (recipe["review"] || recipe.review) {
+            const svgArray = spanRef.current.children;
             for (let i = 0; i < 5; i++) {
-                if (i < Math.floor(recipe["review"].toFixed(2))) spanRef.current.children[i].children[0].children[0].children[0].style.fill = "#000";
-                else spanRef.current.children[i].children[0].children[0].children[0].style.fill = "#fff"
+                const fill = i < Math.floor(recipe["review"].toFixed(2)) ? "#000" : "#fff";
+                svgArray[i].children[0].children[0].children[0].style.fill = fill;
             }
         }
     }
@@ -67,53 +72,59 @@ const Recipe = () => {
 
     return (
         <div className='recipe'>
-            <div className='container'>
+            <div className='container recipe-container'>
                 {recipe &&
                     <>
-                        <h1>{recipe.name}</h1>
-                        <hr />
-                        <div className='recipe-meta'>
-                            <p ref = {spanRef} onMouseOut={updateReviewData}>
-                                {recipe["review"] ? recipe["review"].toFixed(2) : ''}
-                                {[...Array(5)].map((value, index) => (
-                                    <span key={index}>
-                                        <Star 
-                                            onMouseOver={e => handleHover(e, true, index)}
-                                            onMouseOut={e => handleHover(e, false, index)}
-                                            onClick = {e => handleReview(e, index)}
-                                        />
-                                    </span>
+                        <main>
+                            <h1>{recipe.name}</h1>
+                            <div className='recipe-meta'>
+                                <div className='recipe-meta__review-container' onMouseOut={updateReviewData}>
+                                    <span className='recipe-meta__review-value'>{recipe["review"] ? recipe["review"].toFixed(2) : ''}</span>
+                                    <div className='recipe-meta__review-svg' ref = {spanRef}>
+                                        {[...Array(5)].map((value, index) => (
+                                            <span key={index}>
+                                                <Star 
+                                                    onMouseOver={e => handleHover(e, true, index)}
+                                                    onMouseOut={e => handleHover(e, false, index)}
+                                                    onClick = {e => handleReview(e, index)}
+                                                />
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className='recipe-meta__preparation-time'>
+                                    <PreparationTime />
+                                    <span>{recipe.preparationTime ? recipe.preparationTime : "N / A"}</span>
+                                </div>
+                            </div>
+                            <div className='recipe-description'>
+                                <p><em>{recipe.description}</em></p>
+                            </div>
+                            <figure className='recipe-image'>
+                                <img src={recipe.image} alt={recipe.name} />
+                            </figure>
+                            <div className='recipe-instructions'>
+                                {recipe.howToStep.map((value, index) => (
+                                        <div className={`recipe-instructions__container ${index}`} dangerouslySetInnerHTML={{__html: value}} />
                                 ))}
-                            </p>
-                            <p>{recipe.preparationTime}</p>
-                        </div>
-                        <div className='recipe-description'>
-                            <p>{recipe.description}</p>
-                        </div>
-                        <div className='recipe-image'>
-                            <img src={recipe.image} alt={recipe.name} />
-                        </div>
-                        <div className='recipe-ingredients'>
-                            <h2>ingredients</h2>
-                            {recipe.ingredients.map((key, index) => (
-                                <div key={index}>
-                                    <input type="checkbox" name={key} />
-                                    <p>{key}</p>
-                                </div>
-                            ))}
-                        </div>
-                        <div className='recipe-instructions'>
-                            <h2>Instructions</h2>
-                            {recipe.instructions.map((value, index) => (
-                                <div key={index}>
-                                    <ol>
-                                        <li>
-                                            <p>{value}</p>
+                            </div>
+                            <div className='recipe-ingredients'>
+                                <h2>ingredients</h2>
+                                <ul className='recipe-ingredients__list'>
+                                    {recipe.ingredients.map((key, index) => (
+                                        <li key={index}>
+                                            <span className='recipe-ingredients__checkbox-container'>
+                                                <input type="checkbox" name={key} />
+                                            </span>
+                                            <p><div className={`recipe-instructions__container ${index}`} dangerouslySetInnerHTML={{__html: key}} /></p>
                                         </li>
-                                    </ol>
-                                </div>
-                            ))}
-                        </div>
+                                    ))}
+                                </ul>
+                            </div>
+                        </main>
+                        <aside>
+                            {/* NEW COMP */}
+                        </aside>
                     </>
                 }
             </div>

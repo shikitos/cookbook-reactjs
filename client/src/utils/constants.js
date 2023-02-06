@@ -283,7 +283,7 @@ export const createRecipeTitles = {
         titleValue: "Name of route",
         placeholder: "Write the name in string format, it will be a route (url path) [just a string - for example, shio-ramen]...",
     },
-    imageData: {
+    image: {
         titleValue: "Recipe cover image",
         placeholder: "Set recipe's name...",
     },

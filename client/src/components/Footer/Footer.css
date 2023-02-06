@@ -3,6 +3,7 @@ footer.footer {
     color: var(--color-gray);
     margin-top: 35px;
     flex-shrink: 0;
+    font-size: 16px;
 }
 
 

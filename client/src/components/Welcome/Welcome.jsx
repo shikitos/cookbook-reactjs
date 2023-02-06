@@ -3,7 +3,9 @@ import { Post, WelcomeSection, CreateRecipe } from "../";
 import './Welcome.css';
 import { exampleURLImage } from "../../utils/constants";
 
+
 const Welcome = () => {
+    const recipeNames = ["Shio Test", "Curry Udon カレーうどん", "my recipe", "Katsu Curry カツカレー"];
 
     return (
   
@@ -12,19 +14,11 @@ const Welcome = () => {
         <div className="posts">
             <div className="container">
                 <div className="section-post">
-                    <Post 
-                        name="Shio Test"
-                    />
-                    <Post 
-                        name="Curry Udon カレーうどん"
-                    />
-                    <Post 
-                        name="my recipe"
-                    />
-                    <Post 
-                        name="Rice with nothin"
-                    />
-                
+                    <div className="section-post">
+                      {recipeNames.map(name => (
+                        <Post key={name} name={name} />
+                      ))}
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import { React, useEffect, useState } from 'react';
 import './EditRecipe.css';
 import { InputData } from '../';
 import { editRecipeTitles } from '../../utils/constants'; 
+import { useDropzone } from 'react-dropzone';
     
 const EditRecipe = () => {
     const [allRecipes, setAllRecipes] = useState({ 
@@ -62,6 +63,18 @@ const EditRecipe = () => {
         
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allRecipes["showAllRecipes"], status["flag"]]);
+    
+    const { getRootProps, getInputProps } = useDropzone({
+		accept: 'image/*',
+		onDrop: acceptedFiles => {
+		    const file = acceptedFiles[0];
+		    const reader = new FileReader();
+		    reader.onloadend = () => {
+				setExactRecipe({...exactRecipe, image: reader.result});
+		    }
+		    reader.readAsDataURL(file);
+		}
+	});
           
     const handleClick = async (e, id) => {
         e.preventDefault();
@@ -207,9 +220,20 @@ const EditRecipe = () => {
                                         lastChild = {index === Object.keys(exactRecipe).length - 2 ? true : false}
                                         onChange = {e => handleChildValue(e, key)} 
                                     />
+                                    
                                 </>
                             ))} 
-                        </div>
+                            <p className='inputdata-title'>{editRecipeTitles["image"].titleValue ? editRecipeTitles["image"].titleValue : '' }</p>
+                			<div className='dropzone' {...getRootProps()}>
+                    	            <input {...getInputProps()} />
+                    	            {
+                    		            exactRecipe["image"] ? 
+                    		            <img src={exactRecipe["image"]} alt="Uploaded" width="300" height="300" /> 
+                    		            : 
+                    		            <p>Drag 'n' drop recipe's cover image, or click here to select files</p>
+                    	            }
+            			    </div>
+                        </div>  
                     : 'Loading recipes...'}
                         <button className="exact-recipe__save" onClick={(e) => handleSubmit(e, exactRecipe['_id'])}>Save Changes</button>
                         <button className="exact-recipe__back" onClick={() => setAllRecipes({ 

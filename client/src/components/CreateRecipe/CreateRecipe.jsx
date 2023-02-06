@@ -14,7 +14,7 @@ function CreateRecipe(props) {
 	    tags: [],
 	    instructions: [],
 	    description: '',
-	    imageData: null,
+	    image: null,
 	    nutrition: [],
 	    servings: 2,
 	    urlIdName: '',
@@ -28,7 +28,7 @@ function CreateRecipe(props) {
 		    const file = acceptedFiles[0];
 		    const reader = new FileReader();
 		    reader.onloadend = () => {
-				setRecipe({...recipe, imageData: reader.result});
+				setRecipe({...recipe, image: reader.result});
 		    }
 		    reader.readAsDataURL(file);
 		}
@@ -63,7 +63,7 @@ function CreateRecipe(props) {
 		<div className="container create-recipe">
 			{
 				Object.keys(recipe)
-				.filter(key => key !== 'imageData')
+				.filter(key => key !== 'image')
 				.map((key, index) => (
 					<>
 						<InputData
@@ -84,12 +84,12 @@ function CreateRecipe(props) {
 					</>
 				))
 			}
-			<p className='inputdata-title'>{createRecipeTitles["imageData"].titleValue ? createRecipeTitles["imageData"].titleValue : '' }</p>
+			<p className='inputdata-title'>{createRecipeTitles["image"].titleValue ? createRecipeTitles["image"].titleValue : '' }</p>
 			<div className='dropzone' {...getRootProps()}>
 	            <input {...getInputProps()} />
 	            {
-		            recipe["imageData"] ? 
-		            <img src={recipe["imageData"]} alt="Uploaded" width="300" height="300" /> 
+		            recipe["image"] ? 
+		            <img src={recipe["image"]} alt="Uploaded" width="300" height="300" /> 
 		            : 
 		            <p>Drag 'n' drop recipe's cover image, or click here to select files</p>
 	            }
