@@ -1,0 +1,103 @@
+.texteditor {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    font-size: 16px;
+}
+
+div.texteditor-inputarea {
+    flex: 67.5%;
+    font-size: 18px;
+}
+
+div.texteditor-controls {
+    flex: 27.5%;
+    border-bottom: 2px solid  #f5f5f5;
+    border-top: 2px solid  #f5f5f5;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+div.texteditor-header {
+    flex: 5%;
+    align-items: flex-end;
+    
+}
+
+.texteditor-header {
+    display: flex;
+    align-items: center;
+}
+
+.texteditor-header__btn {
+    cursor: pointer;
+    margin-right: 15px;
+    padding: 5px 15px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom: none;
+}
+
+
+.texteditor-header__btn.active {
+    background: #f5f5f5;
+    border-bottom: none;
+}
+
+.texteditor-header__btn:hover {
+    background: #f5f5f5;;
+}
+
+.texteditor-content {
+    flex: 95%;
+    border-top: 2px solid  #f5f5f5;
+    padding-top: 5px;
+    font-size: 18px;
+}
+
+.texteditor-content.empty  {
+    color: #aaaaaa;
+}
+
+
+
+.texteditor-controls__btn {
+    padding: 2.5px 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 5;
+}
+
+.texteditor-controls__btn > svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: sub;
+    z-index: 0;
+}
+
+.texteditor-controls__btn:hover {
+    background: #f5f5f5;;
+
+}
+
+.texteditor-inputarea  {
+    max-width: 100%
+}
+
+.texteditor-inputarea__content {
+    border: none;
+    margin: 0;
+    padding-top: 5px;
+    height: 100%;
+    width:  100%;
+    resize: none;
+    outline: none;
+    display: block;
+}

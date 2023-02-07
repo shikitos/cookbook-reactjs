@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Header, CreateRecipe, Welcome, EditRecipe, Recipe, NotFound, Footer } from './components';
+import { Header, CreateRecipe, Welcome, EditRecipe, Recipe, NotFound, TextEditor, Footer } from './components';
 
 function App() {
     return (
@@ -11,6 +11,7 @@ function App() {
                     <Route path="/:recipename" element={<Recipe />} />
                     <Route path="/create-recipe" element={<CreateRecipe />} />
                     <Route path="/edit-recipe" element={<EditRecipe />} />
+                    <Route path="/text-editor" element={<TextEditor />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             <Footer />

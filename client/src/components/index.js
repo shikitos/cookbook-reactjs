@@ -9,3 +9,6 @@ export { default as InputData } from "./InputData/InputData";
 export { default as Footer } from "./Footer/Footer";
 export { default as Recipe } from "./Recipe/Recipe";
 export { default as NotFound } from "./NotFound/NotFound";
+export { default as RecipeWidget } from "./RecipeWidget/RecipeWidget";
+export { default as TextEditor } from "./TextEditor/TextEditor";
+export { default as EditorPopup } from "./EditorPopup/EditorPopup";

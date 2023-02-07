@@ -97,3 +97,11 @@ em {
     letter-spacing: 0;
     font-weight: 400;
 }
+a {
+    text-decoration: underline;
+    color: var(--color-red);
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: 400;
+}

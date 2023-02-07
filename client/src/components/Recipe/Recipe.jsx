@@ -3,6 +3,7 @@ import "./Recipe.css";
 import { useLocation } from 'react-router-dom';
 import { ReactComponent as Star } from '../../utils/star.svg';
 import { ReactComponent as PreparationTime } from '../../utils/preparationTime.svg';
+import { RecipeWidget } from '../';
 
 const Recipe = () => {
     const location = useLocation();
@@ -123,7 +124,7 @@ const Recipe = () => {
                             </div>
                         </main>
                         <aside>
-                            {/* NEW COMP */}
+                            <RecipeWidget />
                         </aside>
                     </>
                 }
