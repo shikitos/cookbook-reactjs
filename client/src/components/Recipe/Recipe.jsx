@@ -106,7 +106,7 @@ const Recipe = () => {
                             </figure>
                             <div className='recipe-instructions'>
                                 {recipe.howToStep.map((value, index) => (
-                                        <div className={`recipe-instructions__container ${index}`} dangerouslySetInnerHTML={{__html: value}} />
+                                        <div key={index} className={`recipe-instructions__container ${index}`} dangerouslySetInnerHTML={{__html: value}} />
                                 ))}
                             </div>
                             <div className='recipe-ingredients'>
@@ -117,7 +117,7 @@ const Recipe = () => {
                                             <span className='recipe-ingredients__checkbox-container'>
                                                 <input type="checkbox" name={key} />
                                             </span>
-                                            <p><div className={`recipe-instructions__container ${index}`} dangerouslySetInnerHTML={{__html: key}} /></p>
+                                            <div className={`recipe-instructions__container ${index}`} dangerouslySetInnerHTML={{__html: key}} />
                                         </li>
                                     ))}
                                 </ul>

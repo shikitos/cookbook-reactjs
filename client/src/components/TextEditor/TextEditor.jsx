@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './TextEditor.css';
+
 import { EditorPopup } from '../';
 import { ReactComponent as BoldSVG } from '../../utils/editor-bold.svg';
 import { ReactComponent as ItalicSVG } from '../../utils/editor-italic.svg';
@@ -11,6 +12,7 @@ const TextEditor = () => {
     const [editor, setEditor] = useState({
         tempValue: '',
         selectedValue: '',
+        selectedNode: null,
         textareaValue: '',
         tempController: null,
         waitController: false,
@@ -58,21 +60,30 @@ const TextEditor = () => {
     
     useEffect(() => {
         console.log(editor);
-        if (editor.waitController && editor.tempController && editor.selectedValue) {
-            let deleteOrAdd =  editor.selectedValue.includes(editor.tempController) ? true : false;
-            console.log(deleteOrAdd);
+        if (editor.waitController && editor.tempController) {
+            //let deleteOrAdd =  editor.selectedNode.focusNode.parentNode.includes(editor.tempController) ? true : false;
+            let containExactTagFlag = editor.selectedNode.focusNode.parentNode.nodeName === editor.tempController.toUpperCase() ? true : false;
             let tempStringFromArr = '';
-            if (editor.tempController.length < 5) {
-                tempStringFromArr = editor.tempValue.replace(editor.selectedValue, `<${editor.tempController} class="tips-heading">${editor.selectedValue}</${editor.tempController}>`);
+            if (containExactTagFlag) {
                 
             } else {
-                tempStringFromArr = editor.tempValue.replace(editor.selectedValue, editor.tempController);
-                console.log("INSIDE", tempStringFromArr);
+                if (editor.tempController.length < 5) {
+                    tempStringFromArr = editor.tempValue.replace(
+                        editor.selectedValue, 
+                        `<${editor.tempController} class="tips-heading">${editor.selectedValue}</${editor.tempController}>`
+                    );
+                } else {
+                    tempStringFromArr = editor.selectedValue ? 
+                        editor.tempValue.replace(
+                            editor.selectedValue, editor.tempController
+                        ) : `${editor.tempValue}${editor.tempController}`;
+                }
             }
             console.log(`selectedValue: "${editor.selectedValue}", tempValue: "${editor.tempValue}", createdString: "${tempStringFromArr}"`);
             setEditor({ 
                 tempValue: tempStringFromArr,
                 selectedValue: '',
+                selectedNode: null,
                 textareaValue: tempStringFromArr,
                 tempController: null,
                 waitController: false
@@ -85,12 +96,16 @@ const TextEditor = () => {
         e.stopPropagation();
         e.preventDefault();
         if (e.currentTarget.dataset.type === 'a') {
-            console.log('Controller clicked');
-            setEditor({ ...editor, showPopUp: true, selectedValue: window.getSelection().toString() ? window.getSelection().toString() : null })
+            setEditor({ 
+                ...editor, 
+                showPopUp: true, 
+                selectedValue: window.getSelection().toString() ? window.getSelection().toString() : '' 
+            })
         } else {
             setEditor({ 
                 ...editor, 
                 selectedValue: window.getSelection().toString() ? window.getSelection().toString() : null, 
+                selectedNode: window.getSelection() ? window.getSelection() : null,
                 tempController: e.currentTarget.dataset.type,
                 waitController: true  
             }); 
@@ -178,11 +193,7 @@ const TextEditor = () => {
                             className='texteditor-inputarea__content'
                             contentEditable="true" 
                             onInput={handleInput}
-                            dangerouslySetInnerHTML={
-                            editor.textareaValue 
-                                ? {__html: editor.textareaValue}
-                                : {__html: "Hello! This is..."}
-                            }
+                            dangerouslySetInnerHTML={{__html: editor.textareaValue}}
                         ></span>
                     </div>
                 </>

@@ -10,13 +10,10 @@ const Post = (props) => {
   
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await fetch(`http://localhost:8000/api/recipes/search/${props.name}`);
-                const data = await response.json();
-                setRecipe(data[0]);
-            } catch (err) {
-                console.error(err);
-            }
+            fetch(props.id ? `http://localhost:8000/api/recipes/${props.id}` : `http://localhost:8000/api/recipes/search/${props.name}`)
+                .then(response => response.json())
+                .then(json => setRecipe(json[0] ? json[0] : json ))
+                .catch(err => console.error(err));
         };
         
           
@@ -29,7 +26,7 @@ const Post = (props) => {
     
     
     const updateReviewData = () => {
-        if (recipe["review"] || recipe.review) {
+        if (recipe.review) {
             const svgArray = divRef.current.children;
             for (let i = 1; i < 6; i++) {
                 const fill = i - 1 < Math.floor(recipe["review"].toFixed(2)) ? "#000" : "#fff";
@@ -60,7 +57,13 @@ const Post = (props) => {
                             {recipe["name"]}
                         </h2>
                         <div className='post-reviews' ref={divRef}>
-                            <p>{recipe["review"].toFixed(2)}</p>
+                            <p>
+                                {
+                                    isNaN(parseFloat(recipe.review).toFixed(2)) ?
+                                    0 :
+                                    parseFloat(recipe.review).toFixed(2)
+                                }
+                            </p>
                             {[...Array(5)].map((value, index) => (
                                 <span key={index}>
                                     <Star />

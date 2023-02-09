@@ -358,3 +358,18 @@ export const editRecipeTitles = {
     },
 
 }
+
+export const widgetRecipes = {
+    favorites: [
+        "",
+        "",
+        "",
+        ""
+    ],
+    sweets: [
+        "",
+        "",
+        "",
+        ""
+    ]
+}

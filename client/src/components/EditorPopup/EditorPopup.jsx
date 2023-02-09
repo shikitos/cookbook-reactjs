@@ -25,10 +25,10 @@ const EditorPopup = (props) => {
         console.log(props.selText);
         console.log(anchor.text);
         if (props.selText) {
-            props.onClick({tempController: `<a href="${anchor.url}" target="${anchor.target}">${props.selText}</a>`});
+            props.onClick({tempController: `<a href="${anchor.url}" class="tips-anchor" target="${anchor.target}">${props.selText}</a>`});
         }
         if (anchor.text) {
-            props.onClick({tempController: `<a href="${anchor.url}" target="${anchor.target}">${anchor.text}</a>`});
+            props.onClick({tempController: `<a href="${anchor.url}" class="tips-anchor" target="${anchor.target}">${anchor.text}</a>`});
         }
     }
     

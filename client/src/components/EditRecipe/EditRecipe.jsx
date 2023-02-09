@@ -205,7 +205,7 @@ const EditRecipe = () => {
                                         title = {setInputPlaceholderOrTitle("title", key)}
                                         disabled = {key === '_id' || key === 'creationTime' ? true : false}
                                         element = {key === 'servings' ? 'input' : 'textarea'}
-                                        key = {key+"componentInputData"}
+                                        key = {key+Date.now()}
                                         elementName = {key}
                                         recipeArrayItemsCreated = {Array.isArray(exactRecipe[key]) ? exactRecipe[key].length : ''}
                                         type = {key === 'servings' ? 'number' : 'text'}
