@@ -12,3 +12,4 @@ export { default as NotFound } from "./NotFound/NotFound";
 export { default as RecipeWidget } from "./RecipeWidget/RecipeWidget";
 export { default as TextEditor } from "./TextEditor/TextEditor";
 export { default as EditorPopup } from "./EditorPopup/EditorPopup";
+export { default as Categories } from "./Categories/Categories";

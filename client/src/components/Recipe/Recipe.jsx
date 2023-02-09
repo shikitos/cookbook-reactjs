@@ -110,17 +110,47 @@ const Recipe = () => {
                                 ))}
                             </div>
                             <div className='recipe-ingredients'>
-                                <h2>ingredients</h2>
+                                <h2>Ingredients</h2>
                                 <ul className='recipe-ingredients__list'>
                                     {recipe.ingredients.map((key, index) => (
-                                        <li key={index}>
-                                            <span className='recipe-ingredients__checkbox-container'>
-                                                <input type="checkbox" name={key} />
-                                            </span>
-                                            <div className={`recipe-instructions__container ${index}`} dangerouslySetInnerHTML={{__html: key}} />
-                                        </li>
+                                        <>
+                                            {
+                                                key.includes('HHH') ?
+                                                <h3>{key.split("HHH")}</h3>
+                                                :
+                                                <li key={index}>
+                                                    <span className='recipe-ingredients__checkbox-container'>
+                                                        <input type="checkbox" name={key} />
+                                                    </span>
+                                                    <div className={`recipe-instructions__container ${index}`}>
+                                                        <span dangerouslySetInnerHTML={{__html: key}} />
+                                                    </div>
+                                                </li>
+                                            }
+                                        </>
                                     ))}
                                 </ul>
+                            </div>
+                            <div className='recipe-instructions'>
+                                <h2>Instructions</h2>
+                                <ol className='recipe-instructions__list'>
+                                {
+                                    recipe.instructions.map((key, index) => (
+                                        <>
+                                            {
+                                                key.includes('HHH') ?
+                                                <h3>{key.split("HHH")}</h3>
+                                                :
+                                                <li key={index}>
+                                                    <div className={`recipe-instructions__container ${index}`}>
+                                                        <span dangerouslySetInnerHTML={{__html: key}} />
+                                                    </div>
+                                                </li>
+                                            }
+                                        </>
+                                    ))
+                                }
+                                </ol>
                             </div>
                         </main>
                         <aside>

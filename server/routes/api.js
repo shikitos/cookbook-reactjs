@@ -22,6 +22,20 @@ router.get('/recipes/:id', (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// Get a specific recipe by ID
+router.get('/recipes/category/:category', (req, res) => {
+    const category = req.params.category;
+    console.log("Get exact category: " + category);
+    Recipe.find({ categories: category })
+      .then(recipes => {
+        const names = recipes.map(recipe => recipe.name);
+        const id = recipes.map(recipe => recipe.id);
+        res.json({ names });
+      })
+      .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
 // Add a new recipe
 router.post('/recipes', (req, res) => {
     console.log("New POST request....");
