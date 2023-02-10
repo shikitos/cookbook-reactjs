@@ -9,6 +9,7 @@
   resize: none;
   overflow: hidden;
   min-height: 2em;
+  font-size: 14px;
 }
 
 textarea.inputdata-field {

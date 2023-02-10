@@ -3,3 +3,62 @@
     flex-direction: row;
     /* flex-wrap: wrap; */
 }
+
+.section-post article:nth-child(4n) {
+    margin-right: 0;
+}
+
+.latest-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.latest-header__title h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+.latest-header__route {
+    display: flex;
+    align-items: center;
+}
+
+.latest-header__route.hovered {
+    cursor: pointer;
+    color: var(--color-red)
+}
+
+.latest-header__route.hovered > svg {
+    fill: red
+}
+
+.latest-header__route span {
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.latest-header__route svg {
+    transform: rotate(-90deg);
+    fill: #212121;
+}
+
+.latest-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.latest-content article {
+    width: calc(1/3 * 100% - 15px);
+    flex: 31.65%;
+}
+
+.latest-content article:nth-child(3n) {
+    margin-right: 0;
+}

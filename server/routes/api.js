@@ -15,6 +15,18 @@ router.get('/recipes', (req, res) => {
 });
 
 
+router.get("/recipes/latest", (req, res) => {
+    console.log("Get latest recipes...");
+    Recipe.find()
+        .sort({ creationTime: -1 })
+        .limit(6)
+        .then(recipes => {
+            const id = recipes.map(recipe => recipe.id);
+            res.json({ id });
+        })
+        .catch(err => res.status(400).json("Error: " + err));
+});
+
 // Get a specific recipe by ID
 router.get('/recipes/:id', (req, res) => {
     Recipe.findById(req.params.id)
@@ -22,17 +34,18 @@ router.get('/recipes/:id', (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Get a specific recipe by ID
+
+// Get a specific recipe by category
 router.get('/recipes/category/:category', (req, res) => {
     const category = req.params.category;
     console.log("Get exact category: " + category);
     Recipe.find({ categories: category })
-      .then(recipes => {
-        const names = recipes.map(recipe => recipe.name);
-        const id = recipes.map(recipe => recipe.id);
-        res.json({ names });
-      })
-      .catch(err => res.status(400).json('Error: ' + err));
+        .then(recipes => {
+            const names = recipes.map(recipe => recipe.name);
+            const id = recipes.map(recipe => recipe.id);
+            res.json({ id });
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 
@@ -42,7 +55,7 @@ router.post('/recipes', (req, res) => {
     const newRecipe = new Recipe({
         name: req.body.name,
         urlIdName: req.body.urlIdName,
-        review: 0,
+        review: '',
         tags: req.body.tags,
         preparationTime: req.body.preparationTime,
         description: req.body.description,

@@ -53,9 +53,23 @@ const Post = (props) => {
                             src={recipe["image"]}
                             alt={recipe["name"]}
                         />
+                        { props.extended && 
+                            <div className='post-category'>
+                                {
+                                    recipe.categories[0] ? 
+                                    recipe.categories[0].charAt(0).toUpperCase() + recipe.categories[0].slice(1) : 
+                                    'No Category'
+                                }
+                            </div> 
+                        }
                         <h2 className='post-heading'>
                             {recipe["name"]}
                         </h2>
+                        { props.extended && 
+                            <div className='post-description'>
+                                {recipe.description.substring(0, 75) + "..."}
+                            </div>
+                        }
                         <div className='post-reviews' ref={divRef}>
                             <p>
                                 {
@@ -70,9 +84,6 @@ const Post = (props) => {
                                 </span>
                             ))}
                         </div>
-                        { props.extended && 
-                            <div>Extended</div>
-                        }
                     </article>
                 }
             </>

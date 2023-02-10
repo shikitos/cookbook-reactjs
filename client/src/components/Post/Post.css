@@ -1,5 +1,7 @@
 .post-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: calc(1/4 * 100% - 15px);
     margin: 0 20px 40px 0;
     background: #fff;
@@ -23,7 +25,6 @@
 .post-card h2 {
     padding: 10px;
     line-height: 1.25;
-    margin: 0 auto;
     font-size: 21px;
     font-weight: 700;
 }
@@ -41,4 +42,14 @@
 
 .post-reviews > p {
     margin-right: 5px;
+}
+
+.post-description {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.post-category {
+    font-size: 14px;
+    line-height: 1.5;
 }

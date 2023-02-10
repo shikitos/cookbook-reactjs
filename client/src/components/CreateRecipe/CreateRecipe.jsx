@@ -18,7 +18,8 @@ function CreateRecipe(props) {
 	    nutrition: [],
 	    servings: 2,
 	    urlIdName: '',
-        howToStep: []
+        howToStep: [],
+        categories: []
 	});
 	
 	

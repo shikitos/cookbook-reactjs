@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Post } from '../'
-
+import { Post } from '../';
+import { categoriesContent } from '../../utils/constants';
+import './Categories.css';
 const Categories = () => {
     const location = useLocation();
     const [categoryName, setCategoryName] = useState(
@@ -28,18 +29,30 @@ const Categories = () => {
     
     return (
         <div className='category'>
-            <div className='container'>
+            <main>
                 <div className='category-header'>
-                
+                    <div className='container'>
+                        <div className='category-header__text'>
+                            <h1>
+                                {categoriesContent[categoryName].title}
+                            </h1>
+                            <p>
+                                {categoriesContent[categoryName].description}
+                            </p>
+                        </div>
+                        <div className='category-header__img'>
+                            <img src={categoriesContent[categoryName].img} alt={categoriesContent[categoryName].title} />
+                        </div>
+                    </div>
                 </div>
-                <div className='category-content'>
+                <div className='category-content container'>
                 {
                     listOfRecipes ? 
                     <>
                         { 
-                            listOfRecipes.names.length > 0 ?
-                            listOfRecipes.names.map((key, index) => (
-                                <Post key={index} name={key} />
+                            listOfRecipes.id.length > 0 ?
+                            listOfRecipes.id.map((key, index) => (
+                                <Post key={index} id={key} />
                             ))
                             :
                             navigate('/404')
@@ -49,7 +62,7 @@ const Categories = () => {
                     "Loading recipes..."
                 }
                 </div>
-            </div>
+            </main>
         </div>
     )
 }
