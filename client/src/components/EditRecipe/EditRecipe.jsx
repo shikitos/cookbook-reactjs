@@ -197,15 +197,11 @@ const EditRecipe = () => {
                         <div className='exact-recipe__container'>
                             { Object.keys(exactRecipe).filter(key => key !== 'image' && key !== "time" && key !== "__v" && key !== 'review').map((key, index) => (
                                 <>
-                                {/* I found out I did a big mistake.
-                                    Now every changing of any input triggers
-                                    Rerending all inputs....
-                                */}
                                     <InputData
                                         title = {setInputPlaceholderOrTitle("title", key)}
                                         disabled = {key === '_id' || key === 'creationTime' ? true : false}
                                         element = {key === 'servings' ? 'input' : 'textarea'}
-                                        key = {key+Date.now()}
+                                        key = {index}
                                         elementName = {key}
                                         recipeArrayItemsCreated = {Array.isArray(exactRecipe[key]) ? exactRecipe[key].length : ''}
                                         type = {key === 'servings' ? 'number' : 'text'}
@@ -220,7 +216,7 @@ const EditRecipe = () => {
                                         lastChild = {index === Object.keys(exactRecipe).length - 2 ? true : false}
                                         onChange = {e => handleChildValue(e, key)} 
                                     />
-                                    
+
                                 </>
                             ))} 
                             <p className='inputdata-title'>{editRecipeTitles["image"].titleValue ? editRecipeTitles["image"].titleValue : '' }</p>

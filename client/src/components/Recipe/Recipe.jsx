@@ -154,7 +154,7 @@ const Recipe = () => {
                             </div>
                         </main>
                         <aside>
-                            <RecipeWidget />
+                            {/* <RecipeWidget /> */}
                         </aside>
                     </>
                 }

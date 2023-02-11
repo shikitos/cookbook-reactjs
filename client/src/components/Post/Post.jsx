@@ -10,7 +10,7 @@ const Post = (props) => {
   
     useEffect(() => {
         const fetchData = async () => {
-            fetch(props.id ? `http://localhost:8000/api/recipes/${props.id}` : `http://localhost:8000/api/recipes/search/${props.name}`)
+            fetch(`http://localhost:8000/api/recipes/${props.id}`)
                 .then(response => response.json())
                 .then(json => setRecipe(json[0] ? json[0] : json ))
                 .catch(err => console.error(err));
@@ -29,7 +29,7 @@ const Post = (props) => {
         if (recipe.review) {
             const svgArray = divRef.current.children;
             for (let i = 1; i < 6; i++) {
-                const fill = i - 1 < Math.floor(recipe["review"].toFixed(2)) ? "#000" : "#fff";
+                const fill = i - 1 < Math.floor(recipe.review.toFixed(2)) ? "#000" : "#fff";
                 svgArray[i].children[0].children[0].children[0].style.fill = fill;
             }
         }
@@ -50,11 +50,13 @@ const Post = (props) => {
                     >
                         <img 
                             className='post-image'
-                            src={recipe["image"]}
-                            alt={recipe["name"]}
+                            src={recipe.image}
+                            alt={recipe.name}
                         />
                         { props.extended && 
                             <div className='post-category'>
+                                    {console.log(recipe.name,recipe.categories)}
+                            
                                 {
                                     recipe.categories[0] ? 
                                     recipe.categories[0].charAt(0).toUpperCase() + recipe.categories[0].slice(1) : 
@@ -63,7 +65,7 @@ const Post = (props) => {
                             </div> 
                         }
                         <h2 className='post-heading'>
-                            {recipe["name"]}
+                            {recipe.name}
                         </h2>
                         { props.extended && 
                             <div className='post-description'>

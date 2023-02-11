@@ -13,13 +13,14 @@ const Welcome = () => {
     
     useEffect(() => {
         const fetchLatest = () => {
+            console.log("Fetching latest");
             fetch('http://localhost:8000/api/recipes/latest')
                 .then((response) => response.json())
                 .then((json) => setLatestRecipes(json))
                 .catch((error) => console.error(error));
         }
         
-        fetchLatest();
+        if (!latestRecipes) fetchLatest();
     }, [])
     
     

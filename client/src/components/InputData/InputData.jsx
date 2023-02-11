@@ -109,7 +109,7 @@ const InputData = (props) => {
                                     additionalInput.length > 1 ? 
                                     ''
                                     : 
-                                    <p className="inputdata-title" key={key + "inputTitleName" + index}>{props.title}</p>
+                                    <p className="inputdata-title" key={index + 10}>{props.title}</p>
     
                                 }
                                 <input
@@ -122,7 +122,7 @@ const InputData = (props) => {
                                     placeholder={props.placeholder}
         							onChange={(e) => handleOnChangeComplexInput(e, index, props.type, true)}
         							defaultValue = {props.defaulValue}
-        							key={key  + "input" + index}
+        							key={index + 1}
         							disabled={props.disabled}
                                 />
                             </>
@@ -145,11 +145,10 @@ const InputData = (props) => {
                                     index >= 1 ? 
                                     ''
                                     : 
-                                    <p className="inputdata-title" key={key + "titleTeaxtareName"}>{props.title}</p>
+                                    <p className="inputdata-title" key={index + 15}>{props.title}</p>
                                 }
                                 <div className='inputdata-textarea_wrapper'>
                                     <textarea 
-                                        
                                         className="inputdata-field"
                                         type={props.type} 
                                         onFocus={e => handleTextareaOnFocus(e.target, true)}
@@ -157,7 +156,7 @@ const InputData = (props) => {
                                         placeholder={props.placeholder}
                                         onChange={(e) => {handleOnChangeComplexInput(e, props.elementName, index, props.type)}}
                                         onKeyDown={e => handleOnKeyDown(e)}
-    							        key={key + "textareaInput" + index}
+    							        key={index}
     							        disabled={props.disabled}
     							        value={fillComplexInput(props.defaultValue, index)}
                                         ref={textArea}
@@ -170,7 +169,7 @@ const InputData = (props) => {
                                         className="inputdata-close" 
                                         data-related-input={index} 
                                         onClick={e => handleCloseElement(e, index)}
-                                        key={key + "closeTag" + index}
+                                        key={index + 20}
                                         style={{top: closeButtonStyle}} 
                                     >
                                         &#215;

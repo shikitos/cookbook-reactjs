@@ -65,6 +65,7 @@ router.post('/recipes', (req, res) => {
         nutrition: req.body.nutrition,
         creationTime: req.body.creationTime,
         howToStep: req.body.howToStep,
+        categories: req.body.categories
     });
     newRecipe
         .save()
@@ -78,7 +79,6 @@ router.post('/recipes', (req, res) => {
                 tags: result.tags,
                 preparationTime: result.preparationTime,
                 description: result.description,
-                image: result.image,
                 instructions: result.instructions,
                 ingredients: result.ingredients,
                 nutrition: result.nutrition,
@@ -121,7 +121,7 @@ router.patch('/recipes/update-review/:id', (req, res) => {
                 return res.status(500).json({ error: err });
             }
             if (!isNaN(req.body.review)) {
-                let newReview = (recipe.review + req.body.review) / 2;
+                let newReview = recipe.review ? (recipe.review + req.body.review) / 2 : req.body.review;
                 console.log(`Review = old ${recipe.review} + new ${req.body.review}. New Review = ${newReview}`);
                 Recipe.updateOne({ _id: req.params.id }, { $set: { review: newReview } }, { new: true })
                 .exec((err, result) => {

@@ -13,7 +13,7 @@ const RecipeWidget = () => {
                     {widgetRecipes.favorites.map((value, index) => (
                         <Post 
                             key={index}
-                            name={value ? value : null} 
+                            // id={value ? value : null} 
                         />
                     ))}
                 </div>
