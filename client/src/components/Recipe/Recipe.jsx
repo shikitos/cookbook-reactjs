@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import "./Recipe.css";
-import { useLocation } from 'react-router-dom';
+import { useLocation, Navigate } from 'react-router-dom';
 import { ReactComponent as Star } from '../../utils/star.svg';
 import { ReactComponent as PreparationTime } from '../../utils/preparationTime.svg';
 import { RecipeWidget } from '../';
@@ -74,7 +74,7 @@ const Recipe = () => {
     return (
         <div className='recipe'>
             <div className='container recipe-container'>
-                {recipe &&
+                {recipe ?
                     <>
                         <main>
                             <h1>{recipe.name}</h1>
@@ -83,11 +83,12 @@ const Recipe = () => {
                                     <span className='recipe-meta__review-value'>{recipe["review"] ? recipe["review"].toFixed(2) : ''}</span>
                                     <div className='recipe-meta__review-svg' ref = {spanRef}>
                                         {[...Array(5)].map((value, index) => (
-                                            <span key={index}>
+                                            <span key={"star-"+index}>
                                                 <Star 
                                                     onMouseOver={e => handleHover(e, true, index)}
                                                     onMouseOut={e => handleHover(e, false, index)}
                                                     onClick = {e => handleReview(e, index)}
+                                                    key={"svg-"+index}
                                                 />
                                             </span>
                                         ))}
@@ -106,19 +107,19 @@ const Recipe = () => {
                             </figure>
                             <div className='recipe-instructions'>
                                 {recipe.howToStep.map((value, index) => (
-                                        <div key={index} className={`recipe-instructions__container ${index}`} dangerouslySetInnerHTML={{__html: value}} />
+                                        <div key={"howtostep-"+index} className={`recipe-instructions__container ${index}`} dangerouslySetInnerHTML={{__html: value}} />
                                 ))}
                             </div>
                             <div className='recipe-ingredients'>
                                 <h2>Ingredients</h2>
                                 <ul className='recipe-ingredients__list'>
                                     {recipe.ingredients.map((key, index) => (
-                                        <>
+                                        <React.Fragment key={"ingredients-"+index}>
                                             {
                                                 key.includes('HHH') ?
-                                                <h3>{key.split("HHH")}</h3>
+                                                <h3 key={"list-ingredient-title-"+index}>{key.split("HHH")}</h3>
                                                 :
-                                                <li key={index}>
+                                                <li key={"list-ingredient-item-"+index}>
                                                     <span className='recipe-ingredients__checkbox-container'>
                                                         <input type="checkbox" name={key} />
                                                     </span>
@@ -127,7 +128,7 @@ const Recipe = () => {
                                                     </div>
                                                 </li>
                                             }
-                                        </>
+                                        </React.Fragment>
                                     ))}
                                 </ul>
                             </div>
@@ -136,18 +137,18 @@ const Recipe = () => {
                                 <ol className='recipe-instructions__list'>
                                 {
                                     recipe.instructions.map((key, index) => (
-                                        <>
+                                        <React.Fragment key={"instructions-"+index}>
                                             {
                                                 key.includes('HHH') ?
-                                                <h3>{key.split("HHH")}</h3>
+                                                <h3 key={"list-instructions-title-"+index}>{key.split("HHH")}</h3>
                                                 :
-                                                <li key={index}>
+                                                <li key={"list-instructionsItem-"+index}>
                                                     <div className={`recipe-instructions__container ${index}`}>
                                                         <span dangerouslySetInnerHTML={{__html: key}} />
                                                     </div>
                                                 </li>
                                             }
-                                        </>
+                                        </React.Fragment>
                                     ))
                                 }
                                 </ol>
@@ -156,7 +157,8 @@ const Recipe = () => {
                         <aside>
                             {/* <RecipeWidget /> */}
                         </aside>
-                    </>
+                    </> :
+                    <Navigate to='/404' replace />
                 }
             </div>
         </div>

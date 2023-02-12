@@ -1,31 +1,48 @@
 import React, {useState, useEffect} from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { Post } from '../';
 import { categoriesContent } from '../../utils/constants';
 import './Categories.css';
 const Categories = () => {
     const location = useLocation();
-    const [categoryName, setCategoryName] = useState(
-        location.pathname.split('/categories/recipes/')[1].slice(0, -1)
-    );
+    const [pageName, setPageName] = useState({
+        query: '',
+        type: ''
+    });
     const [listOfRecipes, setListOfRecipes] = useState(null);
     let navigate = useNavigate();
     
     useEffect(() => {
-        setCategoryName(location.pathname.split('/categories/recipes/')[1].slice(0, -1));
+        if (location.pathname.includes('tags')) setPageName(data => ({
+            type: 'tag', 
+            query: location.pathname.split('/tags/')[1].slice(0, -1)
+        }));
+        else if (location.pathname.includes('categories')) setPageName(data => ({
+            type: 'category', 
+            query: location.pathname.split('/categories/recipes/')[1].slice(0, -1)
+        }));
     }, [location])
     
     useEffect(() => {
+        if (location.pathname.includes('tags')) setPageName(data => ({
+            type: 'tag', 
+            query: location.pathname.split('/tags/')[1].slice(0, -1)
+        }));
+        else if (location.pathname.includes('categories')) setPageName(location.pathname.split('/categories/recipes/')[1].slice(0, -1));
+    }, [location.pathname])
+    
+    useEffect(() => {
+        
         const fetchRecipes = () => {
-            fetch(`http://localhost:8000/api/recipes/category/${categoryName}`)
+            fetch(`http://localhost:8000/api/recipes/${pageName.type}/${pageName.query}`)
                 .then((response) => response.json())
                 .then((json) => setListOfRecipes(json))
                 .catch((error) => console.error(error));
         }
         
-        fetchRecipes();
+        if  (pageName.type) fetchRecipes();
         
-    }, [categoryName]);
+    }, [pageName]);
     
     return (
         <div className='category'>
@@ -34,14 +51,14 @@ const Categories = () => {
                     <div className='container'>
                         <div className='category-header__text'>
                             <h1>
-                                {categoriesContent[categoryName].title}
+                                {categoriesContent[pageName]?.title}
                             </h1>
                             <p>
-                                {categoriesContent[categoryName].description}
+                                {categoriesContent[pageName]?.description}
                             </p>
                         </div>
                         <div className='category-header__img'>
-                            <img src={categoriesContent[categoryName].img} alt={categoriesContent[categoryName].title} />
+                            <img src={categoriesContent[pageName]?.img} alt={categoriesContent[pageName]?.title} />
                         </div>
                     </div>
                 </div>
@@ -55,7 +72,7 @@ const Categories = () => {
                                 <Post key={index} id={key} />
                             ))
                             :
-                            navigate('/404')
+                            <Navigate to='/404' replace />
                         }
                     </>
                     :

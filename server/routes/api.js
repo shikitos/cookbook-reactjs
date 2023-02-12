@@ -13,6 +13,15 @@ router.get('/recipes', (req, res) => {
         .then(recipes => res.json(recipes))
         .catch(err => res.status(400).json('Error: ' + err));
 });
+// Get all recipes
+router.get('/recipes?q=noimage', (req, res) => {
+    Recipe.find({})
+        .then(recipes => {
+            const recipesWoImage = recipes.filter(recipe => recipe.image);
+            res.json(recipesWoImage);
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 
 router.get("/recipes/latest", (req, res) => {
@@ -42,6 +51,18 @@ router.get('/recipes/category/:category', (req, res) => {
     Recipe.find({ categories: category })
         .then(recipes => {
             const names = recipes.map(recipe => recipe.name);
+            const id = recipes.map(recipe => recipe.id);
+            res.json({ id });
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// Get a specific recipe by tag
+router.get('/recipes/tag/:tag', (req, res) => {
+    const tag = req.params.tag;
+    console.log("Get exact tag: " + tag);
+    Recipe.find({ tags: tag })
+        .then(recipes => {
             const id = recipes.map(recipe => recipe.id);
             res.json({ id });
         })

@@ -10,7 +10,8 @@ const InputData = (props) => {
     const [temp, setTemp] = useState(0);
     const [state, setState] = useState('');
     const textArea = useRef([]);
-
+    const textareaWrapper = useRef([]);
+    
     useEffect(() => {
         if (props.element === 'input') {
             setElement(0);
@@ -22,7 +23,6 @@ const InputData = (props) => {
         } else {
             throw new Error('Invalid input type. It must be either input or textarea.');
         }
-        
         
 
     }, []);
@@ -66,19 +66,23 @@ const InputData = (props) => {
 	const handleOnKeyDown = (e) => {
 	    if (e.code === "Enter" && !e.shiftKey && props.array) {
 	        e.preventDefault();
-	        setAdditionalInput(additionalInput + 1);
+	        setAdditionalInput(input => input + 1);
+	        setTimeout(() => {
+                let arrayOfTextareaElements = Array.from(textareaWrapper.current.children).filter(node => node.className === "inputdata-textarea_wrapper");
+                arrayOfTextareaElements[arrayOfTextareaElements.length - 1].children[0].focus();
+              }, 0);
 	    } 
 	}
     
     const handleAdd = (e) => {
         e.preventDefault();
-        setAdditionalInput(additionalInput + 1);
+        setAdditionalInput(input => input + 1);
     }
     
     const handleCloseElement = (e, index) => {
         e.preventDefault();
         console.log("Delete element №: " + index, "element content: " + arrayOfInputs[index])
-        setAdditionalInput(additionalInput - 1);
+	    setAdditionalInput(input => input - 1);
         let newArrayOfInputs = [...arrayOfInputs];
         newArrayOfInputs.splice(index, 1);
         setArrayOfInputs(newArrayOfInputs);
@@ -137,7 +141,7 @@ const InputData = (props) => {
                     </div>
                 </>
             ) : (
-                <div className={props.elementName + ' inputdata-container' + (props.divider && !props.lastChild ? ' divided' : '')}>
+                <div  ref={textareaWrapper} className={props.elementName + ' inputdata-container' + (props.divider && !props.lastChild ? ' divided' : '')}>
                     {
                         Array.from({ length: additionalInput }).map((key, index) => (
                             <>

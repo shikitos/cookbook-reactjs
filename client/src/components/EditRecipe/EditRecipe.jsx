@@ -39,7 +39,7 @@ const EditRecipe = () => {
         if (allRecipes["showAllRecipes"]) {
             setAllRecipes({ ...allRecipes, showAllRecipes: false });
             setExactRecipe(null);
-            fetch("http://localhost:8000/api/recipes")
+            fetch("http://localhost:8000/api/recipes?q=noimage")
             .then(response => response.json())
             .then(data => setAllRecipes({ ...allRecipes, recipesList: data, showAllRecipes: false }))
         } 

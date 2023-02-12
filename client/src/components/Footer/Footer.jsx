@@ -9,6 +9,11 @@ import { ReactComponent as InstagramIcon} from '../../utils/instagram.svg';
 
 const Footer = () => {
     const navigate = useNavigate();
+    
+    const navigateOnClick = (path) => {
+        navigate(path);
+        window.scrollTo(0, 0);
+    }
 
     return (
         <footer className='footer'>
@@ -48,19 +53,19 @@ const Footer = () => {
                         <div className='footer-content__column'>
                             <h3>ACTIONS</h3>
                             <ul>
-                                <li onClick={e => navigate('create-recipe/')}>
+                                <li onClick={e => navigateOnClick('create-recipe/')}>
                                     Create New Recipe
                                 </li>
-                                <li onClick={e => navigate('edit-recipe/')}>
+                                <li onClick={e => navigateOnClick('edit-recipe/')}>
                                     Edit Recipe
                                 </li>
-                                <li onClick={e => navigate('support/')}>
+                                <li onClick={e => navigateOnClick('support/')}>
                                     Contact Support
                                 </li>
-                                <li onClick={e => navigate('/')}>
+                                <li onClick={e => navigateOnClick('/')}>
                                     Main Page
                                 </li>
-                                <li onClick={e => navigate('about/')}>
+                                <li onClick={e => navigateOnClick('about/')}>
                                     About
                                 </li>
                             </ul>
@@ -68,19 +73,19 @@ const Footer = () => {
                         <div className='footer-content__column'>
                             <h3>DETAILS</h3>
                             <ul>
-                                <li onClick={e => navigate('contact/')}>
+                                <li onClick={e => navigateOnClick('contact/')}>
                                     Contact
                                 </li>
-                                <li onClick={e => navigate('privacy-policy/')}>
+                                <li onClick={e => navigateOnClick('privacy-policy/')}>
                                     Privacy Policy
                                 </li>
-                                <li onClick={e => navigate('terms-condition/')}>
+                                <li onClick={e => navigateOnClick('terms-condition/')}>
                                     Terms And Conditions
                                 </li>
-                                <li onClick={e => navigate('callaborate/')}>
+                                <li onClick={e => navigateOnClick('callaborate/')}>
                                     Collaborate
                                 </li>
-                                <li onClick={e => navigate('content-permissions/')}>
+                                <li onClick={e => navigateOnClick('content-permissions/')}>
                                     Content Permissions
                                 </li>
                             </ul>

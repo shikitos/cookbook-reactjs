@@ -13,6 +13,7 @@ function App() {
                 <Route path="/edit-recipe" element={<EditRecipe />} />
                 <Route path="/text-editor" element={<TextEditor />} />
                 <Route path="/categories/recipes/:categoryname" exact element={<Categories />} />
+                <Route path="/tags/:tagname" exact element={<Categories />} />
                 <Route path="/404" element={<NotFound />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>

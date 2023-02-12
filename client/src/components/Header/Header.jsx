@@ -14,6 +14,7 @@ const Header = () => {
         e.preventDefault();
         console.log('handleClick', path);
         navigate(path, { replace: true });
+        window.scrollTo(0, 0);
     }
 
     return (

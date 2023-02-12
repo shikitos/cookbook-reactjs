@@ -37,8 +37,8 @@ const Post = (props) => {
   
     const  handleClick = (e, path) => {
         e.preventDefault();
-        console.log(path);
         navigate(path, {state: recipe});
+        window.scrollTo(0, 0);
     }
 
     return (
@@ -55,8 +55,6 @@ const Post = (props) => {
                         />
                         { props.extended && 
                             <div className='post-category'>
-                                    {console.log(recipe.name,recipe.categories)}
-                            
                                 {
                                     recipe.categories[0] ? 
                                     recipe.categories[0].charAt(0).toUpperCase() + recipe.categories[0].slice(1) : 
