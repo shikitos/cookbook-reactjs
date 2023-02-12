@@ -1,0 +1,41 @@
+.widget-container {
+    border-top: 2px solid #f0efef;
+
+}
+
+.widget-container h3 {
+    margin: 0;
+    line-height: 1.25;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 0;
+    font-size: 13px;
+    border-top: 2px solid #f0efef;
+    text-align: left;
+}
+
+.widget-container__posts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.widget-container__posts article {
+    width: calc(1/2 * 100% - 15px);
+}
+
+.widget-container__posts article:nth-child(2n) {
+    margin-right: 0;
+}
+
+
+
+@media screen and (max-width: 1024px) {
+    
+    .widget-container__posts article {
+        margin: 0 10px 10px 0;
+    }
+    
+}

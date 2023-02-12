@@ -12,7 +12,20 @@ const Categories = () => {
     const [listOfRecipes, setListOfRecipes] = useState(null);
     let navigate = useNavigate();
     
+    // useEffect(() => {
+    //     console.log('location');
+    //     if (location.pathname.includes('tags')) setPageName(data => ({
+    //         type: 'tag', 
+    //         query: location.pathname.split('/tags/')[1].slice(0, -1)
+    //     }));
+    //     else if (location.pathname.includes('categories')) setPageName(data => ({
+    //         type: 'category', 
+    //         query: location.pathname.split('/categories/recipes/')[1].slice(0, -1)
+    //     }));
+    // }, [location])
+    
     useEffect(() => {
+        console.log('location.pathname');
         if (location.pathname.includes('tags')) setPageName(data => ({
             type: 'tag', 
             query: location.pathname.split('/tags/')[1].slice(0, -1)
@@ -21,26 +34,20 @@ const Categories = () => {
             type: 'category', 
             query: location.pathname.split('/categories/recipes/')[1].slice(0, -1)
         }));
-    }, [location])
-    
-    useEffect(() => {
-        if (location.pathname.includes('tags')) setPageName(data => ({
-            type: 'tag', 
-            query: location.pathname.split('/tags/')[1].slice(0, -1)
-        }));
-        else if (location.pathname.includes('categories')) setPageName(location.pathname.split('/categories/recipes/')[1].slice(0, -1));
     }, [location.pathname])
     
     useEffect(() => {
-        
+    
+        console.log('pageName');
+
         const fetchRecipes = () => {
             fetch(`http://localhost:8000/api/recipes/${pageName.type}/${pageName.query}`)
                 .then((response) => response.json())
                 .then((json) => setListOfRecipes(json))
                 .catch((error) => console.error(error));
         }
-        
-        if  (pageName.type) fetchRecipes();
+        console.log(location.pathname, pageName)
+        if (pageName.type) fetchRecipes();
         
     }, [pageName]);
     
@@ -51,14 +58,14 @@ const Categories = () => {
                     <div className='container'>
                         <div className='category-header__text'>
                             <h1>
-                                {categoriesContent[pageName]?.title}
+                                {categoriesContent[pageName.query]?.title}
                             </h1>
                             <p>
-                                {categoriesContent[pageName]?.description}
+                                {categoriesContent[pageName.query]?.description}
                             </p>
                         </div>
                         <div className='category-header__img'>
-                            <img src={categoriesContent[pageName]?.img} alt={categoriesContent[pageName]?.title} />
+                            <img src={categoriesContent[pageName.query]?.img} alt={categoriesContent[pageName.query]?.title} />
                         </div>
                     </div>
                 </div>

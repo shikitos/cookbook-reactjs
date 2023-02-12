@@ -226,3 +226,39 @@ a.tips-anchor {
     color: var(--color-black);
     margin-top: 0.8em;
 }
+
+.recipe-nutrition h2 {
+    margin: 20px 0 10px;
+    line-height: 1.3em;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.recipe-nutrition__decoration-line {
+    margin-left: 15px;
+    flex: auto;
+    height: 1px;
+    border-bottom: 1px solid #f0efef;
+}
+
+.recipe-nutrition__name {
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+
+@media screen and (max-width: 1024px) {
+    
+    .recipe-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .recipe-container aside {
+    
+    }
+    
+}

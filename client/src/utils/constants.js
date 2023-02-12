@@ -365,13 +365,13 @@ export const editRecipeTitles = {
 
 export const widgetRecipes = {
     favorites: [
-        "",
-        "",
-        "",
-        ""
+        "63e6c877e220cdf7cb0ff292",
+        "63e9383b33cadd90c0841d23",
+        "63e6ad05f06b7d8d30ff9884",
+        "63e42e907e51682c4b30e8aa"
     ],
     sweets: [
-        "",
+        "63e7f53fb39ed48a44ba5197",
         "",
         "",
         ""

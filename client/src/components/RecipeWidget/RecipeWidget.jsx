@@ -7,13 +7,13 @@ const RecipeWidget = () => {
 
     return (
         <>
-            <section className=''>
+            <section className='widget-container'>
                 <h3>Our Favorites!</h3>
                 <div className='widget-container__posts'>
                     {widgetRecipes.favorites.map((value, index) => (
                         <Post 
                             key={index}
-                            // id={value ? value : null} 
+                            id={value ? value : null} 
                         />
                     ))}
                 </div>

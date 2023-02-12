@@ -153,9 +153,24 @@ const Recipe = () => {
                                 }
                                 </ol>
                             </div>
+                            <div className='recipe-nutrition'>
+                                <h2>Nutrition <div class="recipe-nutrition__decoration-line"></div></h2>
+                                <div className='recipe-nutrition__content'>
+                                    {
+                                        recipe.nutrition.map((key, index) => (
+                                            <React.Fragment key={"instructions-"+index}>
+                                                <span className='recipe-nutrition__name'>
+                                                    {key.split(": ")[0]}:&nbsp;
+                                                    <span className='recipe-nutrition__value'>{key.split(": ")[1]}</span> ·&nbsp;
+                                                </span>
+                                            </React.Fragment>
+                                        ))
+                                    }
+                                </div>
+                            </div>
                         </main>
                         <aside>
-                            {/* <RecipeWidget /> */}
+                            <RecipeWidget />
                         </aside>
                     </> :
                     <Navigate to='/404' replace />
