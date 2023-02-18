@@ -110,3 +110,18 @@ footer.footer {
 .footer-rules span {
     text-decoration: underline;
 }
+
+@media screen  and (max-width: 688px) {
+    
+    .footer-wrapper {
+        flex-direction: column;
+    }
+    
+    .footer-contact {
+    
+    }
+    
+    .footer-contact__main > .footer-contact__line {
+        flex: 100%
+    }
+}

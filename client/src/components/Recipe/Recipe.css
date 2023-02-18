@@ -217,7 +217,7 @@ a.tips-anchor {
     font-size: 13px;
 }
 
-.recipe-instructions h2, 
+ 
 .recipe-instructions h3 {
     font-size: 18px;
     font-weight: 700;
@@ -227,7 +227,7 @@ a.tips-anchor {
     margin-top: 0.8em;
 }
 
-.recipe-nutrition h2 {
+.recipe h2 {
     margin: 20px 0 10px;
     line-height: 1.3em;
     font-size: 20px;
@@ -236,7 +236,7 @@ a.tips-anchor {
     align-items: center;
 }
 
-.recipe-nutrition__decoration-line {
+.recipe__decoration-line {
     margin-left: 15px;
     flex: auto;
     height: 1px;

@@ -1,31 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
-import logo from '../../utils/logo-umai.svg';
-import check from '../../utils/check.svg';
+import { ReactComponent as LogoSVG } from '../../utils/logo-umai.svg';
+import { ReactComponent as CheckSVG } from '../../utils/check.svg';
+import { ReactComponent as HamburgerSVG } from '../../utils/hamburger.svg';
 import { navElements } from '../../utils/constants';
 
 const Header = () => {
     const [isHovered, setHover] = useState(false);
     const [hoveredElem, setHoveredElem] = useState(-1);
+    const [isOpen, setIsOpen] = useState(true);
+    const [screenWidth, setScreenWidth] = useState(null);
     let navigate = useNavigate();
+    
+    useEffect(() => {
+        function handleResize() {
+            setScreenWidth(prev => prev = window.innerWidth);
+          }
+      
+          window.addEventListener('resize', handleResize);
+      
+          return () => {
+            window.removeEventListener('resize', handleResize);
+          };
+    }, []);
+    
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    } 
   
-    const  handleClick = (e, path) => {
+    const handleClick = (e, path) => {
         e.preventDefault();
-        console.log('handleClick', path);
+        console.log(e.target)
         navigate(path, { replace: true });
         window.scrollTo(0, 0);
+        setIsOpen(true);
     }
 
     return (
         <header className='header container'>
+            {
+                screenWidth <= 1024 &&
+                <div className={`menu-toggle ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
+                    <div className="hamburger">
+                        <HamburgerSVG />
+                    </div>
+                </div>
+            }
             <div 
                 className='header-logo'
                 onClick={(e) => handleClick(e, '/')}
             >
-                <img src={logo} alt="Logotype UMAI in japanese" />
+                <LogoSVG />
             </div>
-            <nav className='header-nav'>
+            <nav className={`header-nav ${isOpen ? '' : 'open'}`}>
                 <ul>
                 {
                     navElements.map((element, index) => (
@@ -39,7 +67,7 @@ const Header = () => {
                         >       
                             {element.title}
                             <button className="header-nav__button">
-                                <img src={check} alt="Submenu navbar"/>
+                                <CheckSVG />
                             </button>
                             <ul 
                                 className='header-nav__submenu'
@@ -62,7 +90,16 @@ const Header = () => {
                     ))
                 }
                 </ul>
+                {
+                    screenWidth <= 1024 &&
+                    <div className={`menu-toggle__close ${isOpen ? '' : 'open'}`} onClick={toggleMenu}>
+                        <div className="hamburger-close">
+                            &#215;
+                        </div>
+                    </div>
+                }
             </nav>
+            
         </header>
     )
 }

@@ -111,7 +111,7 @@ const Recipe = () => {
                                 ))}
                             </div>
                             <div className='recipe-ingredients'>
-                                <h2>Ingredients</h2>
+                                <h2>Ingredients <div className="recipe__decoration-line"></div></h2>
                                 <ul className='recipe-ingredients__list'>
                                     {recipe.ingredients.map((key, index) => (
                                         <React.Fragment key={"ingredients-"+index}>
@@ -133,7 +133,7 @@ const Recipe = () => {
                                 </ul>
                             </div>
                             <div className='recipe-instructions'>
-                                <h2>Instructions</h2>
+                                <h2>Instructions <div class="recipe__decoration-line"></div></h2>
                                 <ol className='recipe-instructions__list'>
                                 {
                                     recipe.instructions.map((key, index) => (
@@ -154,7 +154,7 @@ const Recipe = () => {
                                 </ol>
                             </div>
                             <div className='recipe-nutrition'>
-                                <h2>Nutrition <div class="recipe-nutrition__decoration-line"></div></h2>
+                                <h2>Nutrition <div class="recipe__decoration-line"></div></h2>
                                 <div className='recipe-nutrition__content'>
                                     {
                                         recipe.nutrition.map((key, index) => (
